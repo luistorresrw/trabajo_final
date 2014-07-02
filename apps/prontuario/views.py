@@ -10,7 +10,7 @@ def login_ok(request):
  
 	keys = matriz.keys()
 	values = matriz.values()
-	return render_to_response('varios/login_ok.html', {'matriz':matriz, 'keys':keys,'values':values}, 
+	return render_to_response('varios/principal.html', {'matriz':matriz, 'keys':keys,'values':values}, 
 		context_instance = RequestContext(request))
 	
 
