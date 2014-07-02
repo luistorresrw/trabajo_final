@@ -20,3 +20,7 @@ def home(request):
 		'login':login,
 	}
 	return render_to_response('varios/principal.html', values, context_instance = RequestContext(request))   
+
+
+def matrix():
+	alfa=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','','O','P','Q','R','S','T','U','V','W','X','Y','Z']

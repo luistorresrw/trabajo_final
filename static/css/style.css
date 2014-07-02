@@ -65,6 +65,8 @@ el color de los íconos*/
   color: #FFF;
 }
 
+/*CSS clase para poner color celeste el fondo de los iconos de los
+text box*/
 .input-group-addon{
   background-color: #57BCDA
 }
