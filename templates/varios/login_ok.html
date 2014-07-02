@@ -28,7 +28,15 @@
 <h1>LOGIN "OK"</h1>
 <div align: "center"> 
 	{% for key, value in matriz.items %}
-    	{{ value }}
+    	{% for v in value %}
+    		{% if v == '\xc3\x91' %}
+    			&ntilde;
+			{% else %}
+				{{v}}
+			{% endif %}
+    		
+    	{% endfor %}
+    	
     	{% if key == 3 or key == 6 %}
     		</br>
     	{% endif %}
