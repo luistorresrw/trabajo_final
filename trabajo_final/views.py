@@ -4,6 +4,7 @@ from django.template import Context, Template, RequestContext
 from django.core.context_processors import csrf
 from trabajo_final.forms import *
 
+
 def home(request):
 	login = LoginForm()
 	if request.method == 'POST':
@@ -20,3 +21,6 @@ def home(request):
 		'login':login,
 	}
 	return render_to_response('varios/principal.html', values, context_instance = RequestContext(request))   
+
+
+

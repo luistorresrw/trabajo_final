@@ -22,8 +22,6 @@ $(document).ready(function() {
                         //max: 9,
                         //message: 'The username must be more than 6 and less than 30 characters long'
                     },
-                    integer: {
-                    },
                     regexp: {
                         regexp: /^[0-9_\.\-]+$/,
                         //message: 'The username can only consist of alphabetical, number and underscore'
