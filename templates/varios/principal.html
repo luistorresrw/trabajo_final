@@ -8,54 +8,86 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="{{ STATIC_URL }}static/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}static/css/style.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap3.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrapValidator.css" rel="stylesheet">
     
-    <script type="text/javascript" src="static/js/jquery.js"></script>
-    <script type="text/javascript" src="static/js/jquery.ketchup.js"></script>
-    <script type="text/javascript" src="static/js/jquery.ketchup.validations.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap3.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/funciones.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrapValidator.js"></script>
+    
 
-    <!-- Fav and touch icons -->
-    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">-->
   </head>
 
   <body>
     <div class="container">
-      <form class="form-signin">
-        <div align="center">
-          <img src="static/images/escudo_transp.png" style="max-width: 70px; max-height: 70"> 
-        </div>
-        <div align="center">
-          <h3 class="form-signin-heading">Iniciar sesión</h3>
+      <div class="form-signin">
+        <form class="form_login" action="." method="post">{% csrf_token %}                                        
+          <div align="center">
+            <img src="{{ STATIC_URL }}img/escudo_transp.png" style="max-width: 70px; max-height: 70px"> 
+          </div>
+          <div align="center">
+            <h3 class="form-signin-heading">Iniciar sesión</h3>
+          </div>  
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user white"></i></span>
+              {{login.usuario}}
+            </div>  
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+              {{login.password}}
+            </div>  
+          </div>
+          <div align="center">
+                <button class= "btn btn-sm btn-info" type="submit">Ingresar</button>
+          </div>
+        </form>  
+        </br>
+        <form class="form-recuperarPassword" action="" method="post">{% csrf_token %}    
+          <div class="form-group">
+            <div align="left">
+              <a data-target="#myModal" data-toggle="modal">¿Olvidó su contraseña?</a>
+            </div>  
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                  <h3 class="modal-title" id="myModalLabel">Recuperación de Contraseña</h3>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope white"></i></span>
+                      <input class="form-control input-block-level" placeholder="Em@il"></input>
+                    </div>
+                  </div> 
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-sm btn-info">Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div align="left">     
+          <a href="">¿Necesita abrir una cuenta?</a> <!--falta agregar adonde linkea-->
         </div>  
-        <input type="text" class="input-block-level" placeholder="Usuario">
-        <input type="password" class="input-block-level" placeholder="Contraseña">
-        <div >
-          <div align="right">
-            <button class="btn btn-small btn-info" type="submit">Ingresar</button>
-          </div>
-          <div align="left">
-            <a href="">¿Olvidó su contraseña?</a> <!--falta agregar adonde linkea-->
-            </br> 
-            <a href="">¿Necesita abrir una cuenta?</a> <!--falta agregar adonde linkea-->
-          </div>
-        </div>                
-      </form>
+      </div>
     </div> 
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+  
+    <script type="text/javascript" src="{{ STATIC_URL }}js/funciones.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap3.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrapValidator.js"></script>
     
+
     <!--<script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap-transition.js"></script>
     <script src="../assets/js/bootstrap-alert.js"></script>
@@ -66,7 +98,7 @@
     <script src="../assets/js/bootstrap-tooltip.js"></script>
     <script src="../assets/js/bootstrap-popover.js"></script>
     <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
+    
     <script src="../assets/js/bootstrap-carousel.js"></script>
     <script src="../assets/js/bootstrap-typeahead.js"></script>-->
   </body>
