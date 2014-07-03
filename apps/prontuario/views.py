@@ -7,8 +7,8 @@ import random
 
 def login_ok(request):
 	matriz = matrix()
- 
-	keys = matriz.keys()
+ 	print matriz
+ 	keys = matriz.keys()
 	values = matriz.values()
 	return render_to_response('varios/principal.html', {'matriz':matriz, 'keys':keys,'values':values}, 
 		context_instance = RequestContext(request))
@@ -30,6 +30,7 @@ def matrix():
 	for k in matriz.keys():
 		for x in range(3):
 			matriz[k].append(get_value(alpha))
+		matriz[k] = ''.join(matriz[k])
 	return matriz
 
 def get_value(alpha):
