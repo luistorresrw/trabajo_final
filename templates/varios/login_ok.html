@@ -1,8 +1,9 @@
-
-<h1>LOGIN "OK"</h1>
+<h3>Ingrese su PIL</h3>
 <div align: "center"> 
-	{% for key, value in matriz.items %}
-    	{% for v in value %}
+	<table class="table table-bordered">
+  {% for key, value in matriz.items %}
+  
+  {% for v in value %}
     		{% if v == '\xc3\x91' %}
     			&ntilde;
 			{% else %}
@@ -12,39 +13,47 @@
     	{% endfor %}
     	
     	{% if key == 3 or key == 6 %}
-    		</br>
+</br>
     	{% endif %}
+
     {% endfor %}
-
-<div class="panel panel-default">
-  		<div align="center" class="panel-body">
-    		<table class="table table-bordered">
-  				<tr>
-                	<td><button type="button" class="btn btn-info">A-1</button></td>
-                	<td><button type="button" class="btn btn-info">A-2</button></td>
-                	<td><button type="button" class="btn btn-info">A-3</button></td>
-  				</tr>
-  				<tr>
-  					<td><button type="button" class="btn btn-info">B-1</button></td>
-  					<td><button type="button" class="btn btn-info">B-2</button></td>
-  					<td><button type="button" class="btn btn-info">B-3</button></td>
-  				</tr>
-  				<tr>
-  					<td><button type="button" class="btn btn-info">C-1</button></td>
-	  				<td><button type="button" class="btn btn-info">C-2</button></td>
-  					<td><button type="button" class="btn btn-info">C-3</button></td>
-				</tr>
-			</table>
-    			
-    		
-    			
-    		
-    		
-  		</div>
-	</div>
-
-
+    
+  </table>
+<div align="center">
+  <!--button class= "btnMuestraDiv btn btn-sm btn-info" type="submit">Ingresar PIL</button-->
+  <input class="mostrar form-control input-block-level"></input>
 </div>
+</br>
+      <div class="teclado" style="display: none;">
+        <table class="table table-bordered">
+          <tr>
+            <td><button type="button" class="btn btn-info btn-sm" value="1">1</button></td>
+            <td><button type="button" class="btn btn-info btn-sm" value="2">2</button></td>
+            <td><button type="button" class="btn btn-info btn-sm" value="3">3</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn btn-info btn-sm" value="4">4</button></td>
+            <td><button type="button" class="btn btn-info btn-sm" value="5">5</button></td>
+            <td><button type="button" class="btn btn-info btn-sm" value="6">6</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn btn-info btn-sm" value="7">7</button></td>
+            <td><button type="button" class="btn btn-info btn-sm" value="8">8</button></td>
+            <td><button type="button" class="btn btn-info btn-sm" value="9">9</button></td>
+          </tr>
+        </table>
+        <div align="center">
+                <button class= "cerrar btn btn-sm btn-info" type="submit">Enviar</button>
+        </div>
+      </div>  
+      
+   
+  		
+    		
+        
+      
+    	
+
 <form>
 	{% csrf_token %}
 </form>
