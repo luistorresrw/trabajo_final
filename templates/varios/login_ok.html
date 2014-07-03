@@ -1,3 +1,5 @@
+{% extends "varios/principal.html" %}
+{% block cuerpo %}
 <h3>Ingrese su PIL</h3>
 <div align: "center"> 
   <table align="center" class="table-bordered table-condensed">
@@ -20,46 +22,20 @@
 
 
   
-  
-<div align="center">
-  <!--button class= "btnMuestraDiv btn btn-sm btn-info" type="submit">Ingresar PIL</button-->
-  <input name="pil" id="pil" class="mostrar form-control input-block-level" type="password" style="text-align: center"></input>
-  <div id="inlineKeypad"></div>
-</div>
-</br>
-      <!--div class="teclado" style="display: none;">
-        <table class="table table-bordered">
-          <tr>
-            <td><button type="button" class="btn btn-info btn-sm" value="1">1</button></td>
-            <td><button type="button" class="btn btn-info btn-sm" value="2">2</button></td>
-            <td><button type="button" class="btn btn-info btn-sm" value="3">3</button></td>
-          </tr>
-          <tr>
-            <td><button type="button" class="btn btn-info btn-sm" value="4">4</button></td>
-            <td><button type="button" class="btn btn-info btn-sm" value="5">5</button></td>
-            <td><button type="button" class="btn btn-info btn-sm" value="6">6</button></td>
-          </tr>
-          <tr>
-            <td><button type="button" class="btn btn-info btn-sm" value="7">7</button></td>
-            <td><button type="button" class="btn btn-info btn-sm" value="8">8</button></td>
-            <td><button type="button" class="btn btn-info btn-sm" value="9">9</button></td>
-          </tr>
-        </table-->
-        <div align="center">
-                <button class= "cerrar btn btn-sm btn-info" type="submit">Enviar</button>
-        </div>
-      <!--/div-->  
-      
-   
-       
-      
-    	
+<form method="POST" action="{% url 'login_ok' %}" >
+    <div align="center">
+        
+      <input name="pil" id="pil" class="mostrar form-control input-block-level" type="password" style="text-align: center"></input>
+      <div id="inlineKeypad"></div>
+    </div>
+    </br>
+    <div align="center">
+      <button class= "cerrar btn btn-sm btn-info" type="submit">Enviar</button>{% csrf_token %}
+    </div>
 
-<form>
-	{% csrf_token %}
 </form>
 
-
+{% endblock %}
 
 
 

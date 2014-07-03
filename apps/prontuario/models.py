@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import signals
 
 class UserProfile(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User,related_name='profile')
 	pil  = models.CharField(max_length=3)
 	factor_vencimiento = models.IntegerField()
 	fecha_ultimo_cambio = models.DateField()

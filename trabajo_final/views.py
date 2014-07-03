@@ -14,11 +14,12 @@ def home(request):
 			password = login.cleaned_data['password']
 			user = auth.authenticate(username = usuario, password = password)
 			if user is not None and user.is_active:
-				auth.login(request, user)
+				request.session['usuario'] = usuario
+				request.session['password'] = password
 				return HttpResponseRedirect('prontuario/')			 
 
 	values = {
 		'login':login,
 	}
-	return render_to_response('varios/principal.html', values, context_instance = RequestContext(request))   
+	return render_to_response('varios/login.html', values, context_instance = RequestContext(request))   
 
