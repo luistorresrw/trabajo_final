@@ -7,18 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <style>
+        #inlineKeypad { width: 10em; }
+    </style>
     <link href="{{ STATIC_URL }}css/bootstrap3.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrapValidator.css" rel="stylesheet">
+    <link type="text/css" href="{{ STATIC_URL }}css/jquery.keypad.css" rel="stylesheet"> 
     
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap3.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/funciones.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrapValidator.js"></script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.plugin.js"></script> 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.keypad.js"></script>
     
-    <script type="text/javascript">
+    <!--script type="text/javascript">
         $(document).ready(function(){
             $(".mostrar").click(function(){
                 $(".teclado").show();
@@ -27,7 +33,7 @@
                 $(".teclado").hide();
             });
         });
-    </script>
+    </script-->
 
   </head>
 
@@ -48,7 +54,8 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap3.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrapValidator.js"></script>
-    
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.plugin.js"></script> 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.keypad.js"></script>
 
     <!--<script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap-transition.js"></script>

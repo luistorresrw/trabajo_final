@@ -68,3 +68,7 @@ $(document).ready(function() {
 /*=========================================================
  * FUNCION QUE HACE APARECER EL TECLADO PARA INGRESAR PIL
  *=========================================================*/
+$(function () {
+    $('#pil').keypad();
+    $('#pil').keypad();
+});

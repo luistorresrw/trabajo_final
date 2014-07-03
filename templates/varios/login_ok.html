@@ -1,24 +1,5 @@
 <h3>Ingrese su PIL</h3>
 <div align: "center"> 
-<!--	<table class="table table-bordered">
-  {% for key, value in matriz.items %}
-  
-  {% for v in value %}
-    		{% if v == '\xc3\x91' %}
-    			&ntilde;
-			{% else %}
-				{{v}}
-			{% endif %}
-    		
-    	{% endfor %}
-    	
-    	{% if key == 3 or key == 6 %}
-</br>
-    	{% endif %}
-
-    {% endfor %}
-    
-  </table>-->
   <table align="center" class="table-bordered table-condensed">
     {% for key,value in matriz.items %}
         {% if key == 1 or key == 4 or key == 7 %}
@@ -42,10 +23,11 @@
   
 <div align="center">
   <!--button class= "btnMuestraDiv btn btn-sm btn-info" type="submit">Ingresar PIL</button-->
-  <input class="mostrar form-control input-block-level"></input>
+  <input name="pil" id="pil" class="mostrar form-control input-block-level" type="password" align="center"></input>
+  <div id="inlineKeypad"></div>
 </div>
 </br>
-      <div class="teclado" style="display: none;">
+      <!--div class="teclado" style="display: none;">
         <table class="table table-bordered">
           <tr>
             <td><button type="button" class="btn btn-info btn-sm" value="1">1</button></td>
@@ -62,15 +44,13 @@
             <td><button type="button" class="btn btn-info btn-sm" value="8">8</button></td>
             <td><button type="button" class="btn btn-info btn-sm" value="9">9</button></td>
           </tr>
-        </table>
+        </table-->
         <div align="center">
                 <button class= "cerrar btn btn-sm btn-info" type="submit">Enviar</button>
         </div>
-      </div>  
+      <!--/div-->  
       
    
-  		
-    		
        
       
     	
