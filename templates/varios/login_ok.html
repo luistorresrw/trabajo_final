@@ -15,24 +15,40 @@
         {% endif %}
       
     {% endfor %}
-    
   </table>
-    <br>
-  
-
-
+  <br>
+</div>  
   
 <form method="POST" action="{% url 'login_ok' %}" >
+  <div align="center">
+    <input name="pil" id="pil" class="block salida mostrar form-control input-block-level" type="password" style="text-align: center"></input>
+  </div>
+  </br>
+  <div class="teclado" style="display: none;" align="center"> 
+    <table class="teclado table-condensed">
+      <tr>
+        <td><a class="val btn btn-info btn-sm" href="1">1</a></td>
+        <td><a class="val btn btn-info btn-sm" href="2">2</a></td>
+        <td><a class="val btn btn-info btn-sm" href="3">3</a></td>
+        <td><button class="btn btn-danger btn-sm cerrar clear"><span class="glyphicon glyphicon-arrow-up white"></span></button></td>
+      </tr>
+      <tr>
+        <td><a class="val btn btn-info btn-sm" href="4">4</a></td>
+        <td><a class="val btn btn-info btn-sm" href="5">5</a></td>
+        <td><a class="val btn btn-info btn-sm" href="6">6</a></td>
+        <td><button class="clear btn btn-success btn-sm"><span class="glyphicon glyphicon-remove white"></button></td>
+      </tr>
+      <tr>
+        <td><a class="val btn btn-info btn-sm" href="7">7</a></td>
+        <td><a class="val btn btn-info btn-sm" href="8">8</a></td>
+        <td><a class="val btn btn-info btn-sm" href="9">9</a></td>
+        <td><a class="back btn btn-warning btn-sm"><span class="glyphicon glyphicon-arrow-left white"></a></td>
+      </tr>  
+    </table>
     <div align="center">
-        
-      <input name="pil" id="pil" class="mostrar form-control input-block-level" type="password" style="text-align: center"></input>
-      <div id="inlineKeypad"></div>
+      <button class= "cerrar btn btn-sm btn-primary" type="submit">Enviar</button>{% csrf_token %}
     </div>
-    </br>
-    <div align="center">
-      <button class= "cerrar btn btn-sm btn-info" type="submit">Enviar</button>{% csrf_token %}
-    </div>
-
+  </div>
 </form>
 
 {% endblock %}

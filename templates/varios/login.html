@@ -21,7 +21,8 @@
           </div>
         </form>  
         </br>
-        <form class="form-recuperarPassword" action="" method="post">{% csrf_token %}    
+        
+          
           <div class="form-group">
             <div align="left">
               <a data-target="#modalRecPass" data-toggle="modal">¿Olvidó su contraseña?</a>
@@ -35,22 +36,24 @@
                   <h3 class="modal-title" id="myModalLabel">Recuperación de Contraseña</h3>
                   <p>Ingrese su dirección de correo electrónico y recibirá un email con las instrucciones para reestablecer la contraseña, si no recibiera el email chequee la bendeja de correo no deseado.</p>
                 </div>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope white"></i></span>
-                      <input class="form-control input-block-level" placeholder="Em@il"></input>
-                    </div>
-                  </div> 
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-sm btn-info">Enviar</button>
-                </div>
+                <form class="form-recuperarPassword" action="" method="post">{% csrf_token %} 
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope white"></i></span>
+                        {{ recpass.email }}
+                      </div>
+                    </div> 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-sm btn-info">Enviar</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-        </form>
+        
         <div align="left">     
           <a href="">¿Necesita abrir una cuenta?</a> <!--falta agregar adonde linkea-->
         </div>  

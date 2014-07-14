@@ -20,6 +20,7 @@ def home(request):
 
 	values = {
 		'login':login,
+		'recpass':RecPassForm(),
 	}
 	return render_to_response('varios/login.html', values, context_instance = RequestContext(request))   
 

@@ -47,7 +47,7 @@ def get_value(alpha):
 	if len(alpha)==1:
 		indice = 0
 	else:
-		indice = random.randrange(0,len(alpha)-1)
+		indice = random.randrange(0,len(alpha))
 	valor = alpha[indice]
 	alpha.remove(valor)
 	return valor
@@ -55,9 +55,9 @@ def get_value(alpha):
 def verificar_matriz(request,input_pil,user):
 	matriz = request.session['matriz']
 	pil = user.profile.pil
-	grupo1 = matriz[int(input_pil[0])]
-	grupo2 = matriz[int(input_pil[1])]
-	grupo3 = matriz[int(input_pil[2])]
+	grupo1 = matriz[input_pil[0]]
+	grupo2 = matriz[input_pil[1]]
+	grupo3 = matriz[input_pil[2]]
 	veri1 = pil[0] in grupo1
 	veri2 = pil[1] in grupo2
 	veri3 = pil[2] in grupo3

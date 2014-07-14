@@ -41,7 +41,7 @@ $(document).ready(function() {
 /*=========================================================
  *FUNCION DE VALIDACION DEL FORMULARIO RECUPERAR CONTRASEÑA
  *=========================================================*/
-/*
+
 $(document).ready(function() {
     $('.form-recuperarPassword').bootstrapValidator({
         feedbackIcons: {
@@ -53,22 +53,54 @@ $(document).ready(function() {
             email: {
                 validators: {
                     notEmpty: {
-                        message: 'The email is required and cannot be empty'
                     },
                     emailAddress: {
-                            message: 'The input is not a valid email address'
-                    }
+                    },
                 }
             }
         }
     });    
 });
-*/
 
-/*=========================================================
- * FUNCION QUE HACE APARECER EL TECLADO PARA INGRESAR PIL
- *=========================================================*/
-$(function () {
-    $('#pil').keypad();
-    $('#pil').keypad();
+
+/*========================;=================
+ * FUNCIONES DEL TECLADO PARA INGRESAR PIL
+ *=========================================*/
+
+//MUESTRA Y OCULTA EL DIV QUE CONTIENE EL TECLADO
+$(document).ready(function(){
+  $(".mostrar").click(function(){
+    $(".teclado").show();
+  });
+  $(".cerrar").click(function(){
+    $(".teclado").hide();
+  });
+});
+
+//BLOQUEA EL TECLADO FISICO
+$(document).ready(function () {
+  $(".block").keypress(function(e) {
+    if (e.which) {
+      return false;
+    }
+
+  });
+});
+
+$(document).ready(function(){
+    //MUESTRA EN PANTALLA LA TECLA PRESIONADA
+    $(".val").click(function(e){
+         e.preventDefault();
+          var a = $(this).attr("href");
+          $(".salida").val($(".salida").val() + a);
+    });
+
+    //LIMPIA TODA LA PANTALLA 
+    $(".clear").click(function(){
+          $(".salida").val("");
+    });
+
+    //BORRA LA PANTALLA CON UN BACKSPACE PERO NO FUNCIONA
+    $(".back").click(function(){
+    });
 });
