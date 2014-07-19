@@ -1,61 +1,66 @@
 {% extends "varios/principal.html" %}
 {% block cuerpo %}
-          <div align="center">
-            <h3 class="form-signin-heading">Iniciar sesión</h3>
+  <div class="container">
+    <div class="form-signin">
+      <div align="center">
+        <img src="{{ STATIC_URL }}img/escudo_transp.png" style="max-width: 70px; max-height: 70px"> 
+      </div>
+      <div align="center">
+        <h3 class="form-signin-heading">Iniciar sesión</h3>
+      </div>  
+      <form class="form_login" action="." method="post">{% csrf_token %}
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user white"></i></span>
+                {{login.usuario}}
           </div>  
-          <form class="form_login" action="." method="post">{% csrf_token %}
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-user white"></i></span>
-              {{login.usuario}}
-            </div>  
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
-              {{login.password}}
-            </div>  
-          </div>
-          <div align="center">
-                <button class= "btn btn-sm btn-info" type="submit">Ingresar</button>
-          </div>
-        </form>  
-        </br>
-        
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+            {{login.password}}
+          </div>  
+        </div>
+        <div align="center">
+          <button class= "btn btn-sm btn-info" type="submit">Ingresar</button>
+        </div>
+      </form>  
+      </br>
           
-          <div class="form-group">
-            <div align="left">
-              <a data-target="#modalRecPass" data-toggle="modal">¿Olvidó su contraseña?</a>
-            </div>  
-          </div>
-          <div class="modal fade" id="modalRecPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                  <h3 class="modal-title" id="myModalLabel">Recuperación de Contraseña</h3>
-                  <p>Ingrese su dirección de correo electrónico y recibirá un email con las instrucciones para reestablecer la contraseña, si no recibiera el email chequee la bendeja de correo no deseado.</p>
-                </div>
-                <form class="form-recuperarPassword" action="" method="post">{% csrf_token %} 
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope white"></i></span>
-                        {{ recpass.email }}
-                      </div>
-                    </div> 
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-sm btn-info">Enviar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        
-        <div align="left">     
-          <a href="">¿Necesita abrir una cuenta?</a> <!--falta agregar adonde linkea-->
+      <div class="form-group">
+        <div align="left">
+          <a data-target="#modalRecPass" data-toggle="modal">¿Olvidó su contraseña?</a>
         </div>  
-
+      </div>
+      <div class="modal fade" id="modalRecPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+              <h3 class="modal-title" id="myModalLabel">Recuperación de Contraseña</h3>
+              <p>Ingrese su dirección de correo electrónico y recibirá un email con las instrucciones para reestablecer la contraseña, si no recibiera el email chequee la bendeja de correo no deseado.</p>
+            </div>
+            <form class="form-recuperarPassword" action="" method="post">{% csrf_token %} 
+              <div class="modal-body">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope white"></i></span>
+                    {{ recpass.email }}
+                  </div>
+                </div> 
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-sm btn-info" >Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+          
+      <div align="left">     
+        <a href="{{ STATIC_URL }}img/solicitud_apertura_cuenta.pdf" target="_blank">¿Necesita abrir una cuenta?</a>
+      </div>  
+    </div>
+  </div>
 {% endblock %}      
