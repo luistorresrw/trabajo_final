@@ -59,11 +59,70 @@ $(document).ready(function() {
                 }
             }
         }
-    });    
+    });
+});
+
+/*=========================================================
+ *FUNCION DE VALIDACION DEL FORMULARIO CAMBIAR CONTRASEÑA
+ *=========================================================*/
+
+$(document).ready(function() {
+    $('.form_changePass').bootstrapValidator({
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            password_actual: {
+                validators: {
+                    notEmpty: {
+                    },
+                    stringLength: {
+                        min: 8,
+                    },
+                    regexp: {
+                        regexp: /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])./,
+                    }
+                }
+            },
+            nuevo_password: {
+                validators: {
+                    notEmpty: {
+                    },
+                    stringLength: {
+                        min: 8,
+                    },
+                    regexp: {
+                        regexp: /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])./,
+                    },
+                    identical: {
+                        field: 'repetir_password',
+                    }
+                }
+            },
+            repetir_password: {
+                validators: {
+                    notEmpty: {
+                    },
+                    stringLength: {
+                        min: 8,
+                    },
+                    regexp: {
+                        regexp: /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])./,
+                    },
+                    identical: {
+                        field: 'nuevo_password',
+                        message: 'Las contraseñas no son iguales'
+                    }
+                }
+            },
+        }
+    });
 });
 
 
-/*========================;=================
+/*=========================================
  * FUNCIONES DEL TECLADO PARA INGRESAR PIL
  *=========================================*/
 

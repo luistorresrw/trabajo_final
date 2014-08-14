@@ -24,7 +24,7 @@
         <br>
       </div> 
 
-      <form method="POST" action="{% url 'login_ok' %}" >
+      <form method="POST" action="{% url 'login_ok' %}" > {% csrf_token %}
         <div align="center">
           <input name="pil" id="pil" class="block salida mostrar form-control input-block-level" type="password" style="text-align: center"></input>
 

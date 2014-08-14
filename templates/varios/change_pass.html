@@ -1,0 +1,40 @@
+{% extends "varios/principal.html" %}
+{% block cuerpo %}
+
+  <div class="container">
+    <div class="form-signin">
+      <div align="center">
+        <img src="{{ STATIC_URL }}img/escudo_transp.png" style="max-width: 70px; max-height: 70px"> 
+      </div>
+      <div align="center">
+        <h3 class="form-signin-heading">Cambiar Contraseña</h3>
+      </div> 
+
+      <form class="form_changePass" action="{% url 'change_password' %}" method="post">{% csrf_token %}
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+              {{form.password_actual}}
+          </div>   
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+            {{form.nuevo_password}}
+          </div>  
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+            {{form.repetir_password}}
+          </div>  
+        </div>
+        <div align="center">
+          <button class= "btn btn-sm btn-info" type="submit">Cambiar contraseña</button>
+        </div>
+      </form>  
+      </br>
+    </div>
+  </div>
+{% endblock %}
