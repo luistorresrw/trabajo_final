@@ -13,22 +13,16 @@ def login_ok(request):
 		usuario = request.session['usuario']
 		password = request.session['password']
 		user = auth.authenticate(username = usuario, password = password)
+		primer_logueo = user.profile.primer_logueo
 		
-		#if user is not None and user.is_active:
-		#	if verificar_matriz(request,input_pil,user):
-		#		auth.login(request, user)
-		#		if user is not None and user.is_active:
-		#			if user.date_joined == user.last_login:
-		#				form = ChangePassForm()
-		#				return render_to_response('varios/change_pass.html', {'form':form}, context_instance = RequestContext(request))		
-		#			return render_to_response('varios/logueado.html',{},context_instance = RequestContext(request)) 
-		
-		if user is not None and user.is_active and user.date_joined == user.last_login:
+		if user is not None and user.is_active and primer_logueo == True:
 			form = ChangePassForm()
 			request.session['user'] = user.username
+			primer_logueo = False
+			user.profile.save()
 			return render_to_response('varios/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
-		#if user is not None and user.is_active and user.date_joined != user.last_login:				
-		#	return render_to_response('varios/logueado.html',{},context_instance = RequestContext(request))
+		if user is not None and user.is_active and primer_logueo == False:
+			return render_to_response('varios/logueado.html',{},context_instance = RequestContext(request))
 			
 	matriz = matrix()
 	request.session['matriz'] = matriz
@@ -76,8 +70,6 @@ def verificar_matriz(request,input_pil,user):
 	veri3 = pil[2] in grupo3
 	return veri1 and veri2 and veri3
 	
-#def first_login(request,)
-
 def change_password(request):
 	if request.method == 'POST':
 		form = ChangePassForm(request.POST)
@@ -93,6 +85,8 @@ def change_password(request):
 				user.set_password(nuevo_password)
 				user.save()
 				return render_to_response('varios/logueado.html', {}, context_instance = RequestContext(request))
-	print user
 	return HttpResponseRedirect(reverse('home'))
+
+#def logout(request):
+#	auth.logout
 

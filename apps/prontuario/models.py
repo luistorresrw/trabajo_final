@@ -7,6 +7,7 @@ class UserProfile(models.Model):
 	pil  = models.CharField(max_length=3)
 	factor_vencimiento = models.IntegerField()
 	fecha_ultimo_cambio = models.DateField()
+	primer_logueo = models.BooleanField(default = True)
 	
 	class Meta:
 		db_table = 'UserProfile'

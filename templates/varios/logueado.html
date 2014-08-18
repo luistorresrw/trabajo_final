@@ -1,1 +1,24 @@
-<h1>Estas adentro</h1>
+{% extends "varios/principal.html" %}
+{% block cuerpo %}
+		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      	<div class="container fluid">
+        	<div class="navbar-header">
+          		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            	<span class="sr-only">Toggle navigation</span>
+	            </button>
+	          	<div class="pull-left">
+	          		<div class="pull-left">
+	          			<img src="{{ STATIC_URL }}img/escudo_transp.png" style="max-width: 40px; max-height: 40px">
+	          		</div>
+	          		<a class="navbar-brand" href="#">Sistema de Identificación Prontuarial</a>
+	          	</div>
+	          	
+        	</div>
+    	</div>
+    </div>
+    <div class="container theme-showcase" role="main">
+    	<div class="jumbotron" align="center">
+			<h1>BIENVENIDO</h1>    	
+    	</div>
+    </div>	 
+{% endblock%}
