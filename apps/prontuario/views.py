@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
 from trabajo_final.forms import *
+from datetime import date
 import random
 
 def login_ok(request):
@@ -14,12 +15,12 @@ def login_ok(request):
 		password = request.session['password']
 		user = auth.authenticate(username = usuario, password = password)
 		primer_logueo = user.profile.primer_logueo
-		
+		print primer_logueo
 		if user is not None and user.is_active and primer_logueo == True:
 			form = ChangePassForm()
 			request.session['user'] = user.username
-			primer_logueo = False
-			user.profile.save()
+			#primer_logueo = False
+			#user.profile.save()
 			return render_to_response('varios/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
 		if user is not None and user.is_active and primer_logueo == False:
 			return render_to_response('varios/logueado.html',{},context_instance = RequestContext(request))
@@ -83,7 +84,16 @@ def change_password(request):
 			else:
 				nuevo_password = form.cleaned_data['nuevo_password']
 				user.set_password(nuevo_password)
-				user.save()
+				try:
+					user.save()
+					profile = user.profile
+					profile.primer_logueo = False
+					profile.fecha_ultimo_cambio = date.today()
+					print user.profile
+					profile.save()
+				except Exception, e:
+					raise e
+					
 				return render_to_response('varios/logueado.html', {}, context_instance = RequestContext(request))
 	return HttpResponseRedirect(reverse('home'))
 
