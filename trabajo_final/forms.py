@@ -15,4 +15,3 @@ class ChangePassForm(forms.Form):
 	nuevo_password 	 = forms.CharField(widget=forms.PasswordInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nuevo password'},render_value=False)))
 	repetir_password = forms.CharField(widget=forms.PasswordInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Repetir password'},render_value=False)))
 
-#validar formulario django 

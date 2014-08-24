@@ -21,6 +21,12 @@
             {{login.password}}
           </div>  
         </div>
+        {% if not mensaje == "" %}
+          <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>Error!</h4> <strong>{{mensaje}}</strong> 
+          </div>
+        {% endif %}  
         <div align="center">
           <button class= "btn btn-sm btn-info" type="submit">Ingresar</button>
         </div>

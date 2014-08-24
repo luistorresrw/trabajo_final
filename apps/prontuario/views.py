@@ -7,6 +7,8 @@ from django.core.context_processors import csrf
 from trabajo_final.forms import *
 from datetime import date
 import random
+from django.contrib.auth import *
+
 
 def login_ok(request):
 	if request.method == 'POST':
@@ -19,8 +21,6 @@ def login_ok(request):
 		if user is not None and user.is_active and primer_logueo == True:
 			form = ChangePassForm()
 			request.session['user'] = user.username
-			#primer_logueo = False
-			#user.profile.save()
 			return render_to_response('varios/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
 		if user is not None and user.is_active and primer_logueo == False:
 			return render_to_response('varios/logueado.html',{},context_instance = RequestContext(request))
@@ -97,6 +97,8 @@ def change_password(request):
 				return render_to_response('varios/logueado.html', {}, context_instance = RequestContext(request))
 	return HttpResponseRedirect(reverse('home'))
 
-#def logout(request):
-#	auth.logout
+def cerrar_sesion(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('home'))
+
 
