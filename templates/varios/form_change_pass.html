@@ -1,0 +1,25 @@
+<form class="form_changePass" action="{% url 'change_password' %}" method="post">{% csrf_token %}
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+              {{form.password_actual}}
+          </div>   
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+            {{form.nuevo_password}}
+          </div>  
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock white"></i></span>
+            {{form.repetir_password}}
+          </div>  
+        </div>
+        <div align="center">
+          <button class= "btn btn-sm btn-info" type="submit">Cambiar contraseña</button>
+        </div>
+
+</form>

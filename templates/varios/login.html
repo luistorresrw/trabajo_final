@@ -22,9 +22,17 @@
           </div>  
         </div>
         {% if not mensaje == "" %}
-          <div class="alert alert-dismissable alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4>Error!</h4> <strong>{{mensaje}}</strong> 
+          <!-- Modal -->
+          <div class="modal fade modal_error" data-target="#myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog"></br></br></br></br></br></br></br></br></br></br>
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="alert alert-dismissable alert-danger">
+                      <h4>Error!</h4> <strong>{{mensaje}}</strong> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         {% endif %}  
         <div align="center">
@@ -35,7 +43,7 @@
           
       <div class="form-group">
         <div align="left">
-          <a data-target="#modalRecPass" data-toggle="modal">¿Olvidó su contraseña?</a>
+          <a href="" data-target="#modalRecPass" data-toggle="modal">¿Olvidó su contraseña?</a>
         </div>  
       </div>
       <div class="modal fade" id="modalRecPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -79,6 +79,10 @@ def change_password(request):
 			username = request.session['user']
 			password = form.data['password_actual']
 			user = auth.authenticate(username=username, password=password)
+			
+			
+
+
 			if user is None:
 				return HttpResponseRedirect(reverse('home'))
 			else:

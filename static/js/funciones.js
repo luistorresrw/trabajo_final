@@ -163,3 +163,7 @@ $(document).ready(function(){
     $(".back").click(function(){
     });
 });
+
+$(document).ready(function(){
+    $(".modal_error").modal('toggle');
+});

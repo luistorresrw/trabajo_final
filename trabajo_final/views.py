@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import Context, Template, RequestContext
@@ -20,14 +21,12 @@ def home(request):
 				return HttpResponseRedirect('prontuario/')
 			else:
 				login = LoginForm()
-				mensaje = "Usuario y/o contrase&ntilde;a incorrectos."
+				mensaje = "Usuario y/o contraseña incorrectos."
 
 
 	values = {
 		'login':login,
 		'mensaje':mensaje,
-
-		
 	}
 	return render_to_response('varios/login.html', values, context_instance = RequestContext(request))   
 
