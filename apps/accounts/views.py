@@ -1,13 +1,40 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.template import Context, Template, RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from trabajo_final.forms import *
+from apps.accounts.forms import *
 from datetime import date
 import random
 from django.contrib.auth import *
+
+
+
+
+def home(request):
+	login = LoginForm()
+	mensaje = ""
+	if request.method == 'POST':
+		login = LoginForm(request.POST)
+		if login.is_valid():	
+			usuario = login.data['usuario']
+			password = login.cleaned_data['password']
+			user = auth.authenticate(username = usuario, password = password)
+			if user is not None and user.is_active:
+				request.session['usuario'] = usuario
+				request.session['password'] = password
+				return HttpResponseRedirect('accounts/')
+			else:
+				login = LoginForm()
+				mensaje = "Usuario y/o contraseña incorrectos."
+
+
+	values = {
+		'login':login,
+		'mensaje':mensaje,
+	}
+	return render_to_response('accounts/login.html', values, context_instance = RequestContext(request))  
 
 
 def login_ok(request):
@@ -21,15 +48,15 @@ def login_ok(request):
 		if user is not None and user.is_active and primer_logueo == True:
 			form = ChangePassForm()
 			request.session['user'] = user.username
-			return render_to_response('varios/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
+			return render_to_response('accounts/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
 		if user is not None and user.is_active and primer_logueo == False:
-			return render_to_response('varios/logueado.html',{},context_instance = RequestContext(request))
+			return render_to_response('accounts/logueado.html',{},context_instance = RequestContext(request))
 			
 	matriz = matrix()
 	request.session['matriz'] = matriz
  	keys = matriz.keys()
 	values = matriz.values()
-	return render_to_response('varios/login_ok.html', {'matriz':matriz, 'keys':keys,'values':values}, context_instance = RequestContext(request))
+	return render_to_response('accounts/login_ok.html', {'matriz':matriz, 'keys':keys,'values':values}, context_instance = RequestContext(request))
 	
 
 def matrix():
@@ -98,7 +125,7 @@ def change_password(request):
 				except Exception, e:
 					raise e
 					
-				return render_to_response('varios/logueado.html', {}, context_instance = RequestContext(request))
+				return render_to_response('accounts/logueado.html', {}, context_instance = RequestContext(request))
 	return HttpResponseRedirect(reverse('home'))
 
 def cerrar_sesion(request):
