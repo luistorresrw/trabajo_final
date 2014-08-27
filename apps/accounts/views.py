@@ -50,7 +50,7 @@ def login_ok(request):
 			request.session['user'] = user.username
 			return render_to_response('accounts/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
 		if user is not None and user.is_active and primer_logueo == False:
-			return render_to_response('accounts/logueado.html',{},context_instance = RequestContext(request))
+			return HttpResponseRedirect('../prontuarios/')
 			
 	matriz = matrix()
 	request.session['matriz'] = matriz
@@ -125,7 +125,8 @@ def change_password(request):
 				except Exception, e:
 					raise e
 					
-				return render_to_response('accounts/logueado.html', {}, context_instance = RequestContext(request))
+				return HttpResponseRedirect('prontuarios/')
+				
 	return HttpResponseRedirect(reverse('home'))
 
 def cerrar_sesion(request):
