@@ -14,6 +14,7 @@ from django.contrib.auth import *
 
 def home(request):
 	login = LoginForm()
+	recpass = RecPassForm()
 	mensaje = ""
 	if request.method == 'POST':
 		login = LoginForm(request.POST)
@@ -31,6 +32,7 @@ def home(request):
 
 
 	values = {
+		'recpass':recpass,
 		'login':login,
 		'mensaje':mensaje,
 	}
@@ -45,11 +47,11 @@ def login_ok(request):
 		user = auth.authenticate(username = usuario, password = password)
 		primer_logueo = user.profile.primer_logueo
 		print primer_logueo
-		if user is not None and user.is_active and primer_logueo == True:
+		if user is not None and user.is_active and verificar_matriz(request,input_pil,user) and primer_logueo == True:
 			form = ChangePassForm()
 			request.session['user'] = user.username
 			return render_to_response('accounts/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
-		if user is not None and user.is_active and primer_logueo == False:
+		if user is not None and user.is_active and verificar_matriz(request,input_pil,user) and primer_logueo == False:
 			return HttpResponseRedirect('../prontuarios/')
 			
 	matriz = matrix()
@@ -88,15 +90,17 @@ def get_value(alpha):
 	return valor
 
 def verificar_matriz(request,input_pil,user):
-	matriz = request.session['matriz']
-	pil = user.profile.pil
-	grupo1 = matriz[input_pil[0]]
-	grupo2 = matriz[input_pil[1]]
-	grupo3 = matriz[input_pil[2]]
-	veri1 = pil[0] in grupo1
-	veri2 = pil[1] in grupo2
-	veri3 = pil[2] in grupo3
-	return veri1 and veri2 and veri3
+	if input_pil and input_pil != "":
+		matriz = request.session['matriz']
+		pil = user.profile.pil
+		grupo1 = matriz[int(input_pil[0])]
+		grupo2 = matriz[int(input_pil[1])]
+		grupo3 = matriz[int(input_pil[2])]
+		veri1 = pil[0] in grupo1
+		veri2 = pil[1] in grupo2
+		veri3 = pil[2] in grupo3
+		return veri1 and veri2 and veri3
+	return False
 	
 def change_password(request):
 	if request.method == 'POST':

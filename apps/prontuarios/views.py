@@ -11,5 +11,5 @@ from django.contrib.auth import *
 
 
 def prontuarios_home(request):
-	print 'viene'
+	
 	return render_to_response('accounts/logueado.html', {}, context_instance = RequestContext(request))
