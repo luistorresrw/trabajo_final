@@ -8,8 +8,10 @@ from apps.accounts.forms import *
 from datetime import date
 import random
 from django.contrib.auth import *
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def prontuarios_home(request):
 	
 	return render_to_response('accounts/logueado.html', {}, context_instance = RequestContext(request))

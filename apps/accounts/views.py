@@ -52,6 +52,7 @@ def login_ok(request):
 			request.session['user'] = user.username
 			return render_to_response('accounts/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
 		if user is not None and user.is_active and verificar_matriz(request,input_pil,user) and primer_logueo == False:
+			login(request, user)
 			return HttpResponseRedirect('../prontuarios/')
 			
 	matriz = matrix()
@@ -128,7 +129,7 @@ def change_password(request):
 					profile.save()
 				except Exception, e:
 					raise e
-					
+				login(request, user)	
 				return HttpResponseRedirect('prontuarios/')
 				
 	return HttpResponseRedirect(reverse('home'))
