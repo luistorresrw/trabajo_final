@@ -6,4 +6,5 @@ from views import *
 
 urlpatterns = patterns('',
 	url(r'^$', admin_home, name = 'admin_home'),
+	url(r'^pais/$',  pais, name='pais'),
 ) 
