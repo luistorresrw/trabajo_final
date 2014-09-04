@@ -40,6 +40,7 @@ def home(request):
 
 
 def login_ok(request):
+	mensaje = ""
 	if request.method == 'POST':
 		input_pil = request.POST['pil']
 		usuario = request.session['usuario']
@@ -47,19 +48,24 @@ def login_ok(request):
 		user = auth.authenticate(username = usuario, password = password)
 		primer_logueo = user.profile.primer_logueo
 		print primer_logueo
-		if user is not None and user.is_active and verificar_matriz(request,input_pil,user) and primer_logueo == True:
-			form = ChangePassForm()
-			request.session['user'] = user.username
-			return render_to_response('accounts/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
-		if user is not None and user.is_active and verificar_matriz(request,input_pil,user) and primer_logueo == False:
-			login(request, user)
-			return HttpResponseRedirect('../prontuarios/')
-			
+		if user is not None and user.is_active: 
+			if verificar_matriz(request,input_pil,user):
+				if primer_logueo == True:
+					form = ChangePassForm()
+					request.session['user'] = user.username
+					return render_to_response('accounts/change_pass.html', {'form':form,}, context_instance = RequestContext(request))
+				else:
+					login(request, user)
+					return HttpResponseRedirect('../prontuarios/')
+			else:
+				mensaje = "Codigo PIL erroneo."	
+		else:
+			return HttpResponseRedirect("/")	
 	matriz = matrix()
 	request.session['matriz'] = matriz
  	keys = matriz.keys()
 	values = matriz.values()
-	return render_to_response('accounts/login_ok.html', {'matriz':matriz, 'keys':keys,'values':values}, context_instance = RequestContext(request))
+	return render_to_response('accounts/login_ok.html', {'matriz':matriz, 'keys':keys,'values':values,'mensaje':mensaje}, context_instance = RequestContext(request))
 	
 
 def matrix():
@@ -111,10 +117,7 @@ def change_password(request):
 			username = request.session['user']
 			password = form.data['password_actual']
 			user = auth.authenticate(username=username, password=password)
-			
-			
-
-
+			#agregar mensaje
 			if user is None:
 				return HttpResponseRedirect(reverse('home'))
 			else:
