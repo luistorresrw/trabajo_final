@@ -100,9 +100,9 @@ def verificar_matriz(request,input_pil,user):
 	if input_pil and input_pil != "":
 		matriz = request.session['matriz']
 		pil = user.profile.pil
-		grupo1 = matriz[input_pil[0]]
-		grupo2 = matriz[input_pil[1]]
-		grupo3 = matriz[input_pil[2]]
+		grupo1 = matriz[int(input_pil[0])]
+		grupo2 = matriz[int(input_pil[1])]
+		grupo3 = matriz[int(input_pil[2])]
 		veri1 = pil[0] in grupo1
 		veri2 = pil[1] in grupo2
 		veri3 = pil[2] in grupo3
@@ -133,7 +133,7 @@ def change_password(request):
 				except Exception, e:
 					raise e
 				login(request, user)	
-				return HttpResponseRedirect('prontuarios/')
+				return HttpResponseRedirect('../../prontuarios/')
 				
 	return HttpResponseRedirect(reverse('home'))
 
