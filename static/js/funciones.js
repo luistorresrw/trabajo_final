@@ -167,3 +167,8 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".modal_error").modal('toggle');
 });
+$(document).ready(function(){
+    $('#table').dataTable( {
+          "aaSorting": [[ 1, "desc" ]]
+    } );
+});

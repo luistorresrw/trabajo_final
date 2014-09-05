@@ -19,7 +19,9 @@ def admin_home(request):
 
 @login_required
 def pais(request):
-  
+  clase = "pais"
+  columns = ["descripcion"]
+  destino = "edit"
   if request.method =="POST": 
       form = PaisesForm(request.POST)
       pais = request.POST.get('descripcion')
@@ -38,9 +40,15 @@ def pais(request):
 
       form = PaisesForm()
       lista = RefPaises.objects.all()
-      return render_to_response('./paises.html',{'form':form,'ciudades':ciudades,'errors': errors,'lista':lista,'state':state, 'destino': destino},context_instance=RequestContext(request))
+      return render_to_response('./paises.html',{'form':form,'lista':lista,'clase':clase,"columns":columns},context_instance=RequestContext(request))
   else:  
 
      form = PaisesForm()
      lista = RefPaises.objects.all()
-     return render_to_response('administracion/paises.html',{'form':form,'lista':lista},context_instance=RequestContext(request))
+     return render_to_response('administracion/paises.html',{'form':form,'lista':lista,'clase':clase,"columns":columns},context_instance=RequestContext(request))
+
+def edit_pais(request,pais):
+  pass
+
+def remove_pais(request,pais):
+  pass
