@@ -2,8 +2,10 @@
 {% block cuerpo_admin %}
 		<h3> ABM de {{clase |capfirst }} </h3>
 		<hr>
-			
-			{{form}}
+			{% with "administracion/formulario_"|add:clase|add:".html" as template %}
+				{% include template %}
+			{% endwith %}
+
 		<hr>
 		<h4> <b>Listado General</b> </h4>
 			<table class="table" id="table" name="table">

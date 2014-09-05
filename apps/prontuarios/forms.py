@@ -5,6 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from models import *
 
 class PaisesForm(forms.ModelForm):
-    descripcion = forms.CharField(required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre del Pais','required':'required'})))
     class Meta:
 		model = RefPaises

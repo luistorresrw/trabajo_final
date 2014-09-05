@@ -1,0 +1,7 @@
+<form role="form"  method="POST" action ="{% url 'pais' %}">{% csrf_token %}
+	<div class="form-group">
+		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+	</div>
+	
+	 <button type="submit" class="btn btn-success pull-right">Nuevo</button><br><br>
+</form>
