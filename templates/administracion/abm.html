@@ -23,14 +23,15 @@
 				<tbody>
 					{% for elemento in lista %}
 						<tr>
-							{% for columna in columns %}
-								
-								<td>{{elemento}}{{.columna}}</td>
+							{% for fila in tbody %}
+								{% autoescape off %}
+									{{fila}}
+								{% endautoescape %}
 								
 							{% endfor %}
 							<td align="center">
 								<a class="btn btn-sm btn-success" href="{% url 'edit_'|add:clase elemento.id %}"> <i class="glyphicon glyphicon-edit"></i> Editar </a>
-								<a class="btn btn-sm btn-danger" href="{% url 'remove_'|add:clase elemento.id %}"> <i class="glyphicon glyphicon-trash"></i> Eliminar </a>
+								<a class="btn btn-sm btn-danger" href="{% url 'remove_'|add:clase elemento.id %}" onclick="return confirm('Por favor confirme que desea eliminar el registro.')"> <i class="glyphicon glyphicon-trash"></i> Eliminar </a>
 
 							</td>
 						</tr>
