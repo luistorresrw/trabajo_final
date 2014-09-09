@@ -1,0 +1,25 @@
+{% if not ciudad.id %}
+<form role="form"  method="POST" action ="{% url 'ciudad' %}">{% csrf_token %}
+{% else %}
+<form role="form"  method="POST" action ="{% url 'edit_ciudad' ciudad.id %}">{% csrf_token %}
+{% endif %}
+	<div class="form-group">
+		 <label for="descripcion" class>Paid</label>{{form.pais}}
+	</div>
+	<div class="form-group">
+		 <label for="descripcion" class>Provincia</label>{{form.provincia}}
+	</div>
+	<div class="form-group">
+		 <label for="descripcion" class>Departamento</label>{{form.departamento}}
+	</div>
+	<div class="form-group">
+		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+	</div>
+	{% if not ciudad.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'ciudad' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<br><br>
+	 {% endif %}
+</form>
