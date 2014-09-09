@@ -22,9 +22,7 @@ def admin_home(request):
 def pais(request):
   clase = "pais"
   columns = ["descripcion"]
-  destino = "edit"
   pais = RefPaises()
-  print request.method
   if request.method =="POST": 
       form = PaisesForm(request.POST)
       print form.is_valid
@@ -40,8 +38,15 @@ def pais(request):
      lista = RefPaises.objects.all()
      return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns},context_instance=RequestContext(request))
 
+@login_required
 def edit_pais(request,pais):
-  pass
+  clase="pais"
+  columns = ["descripcion"]
+  pais = RefPaises.objects.get(id=pais)
+  form = PaisesForm(instance=pais)
+  lista = RefPaises.objects.all()
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns},context_instance=RequestContext(request))  
+
 
 def remove_pais(request,pais):
   pass

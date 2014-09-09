@@ -2,6 +2,11 @@
 	<div class="form-group">
 		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
 	</div>
-	
-	 <button type="submit" class="btn btn-success pull-right">Nuevo</button><br><br>
+	{% if pais.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'pais' %}" class="btn btn-link pull-right">Cancelar</a>
+	 	<br><br>
+	 {% endif %}
 </form>
