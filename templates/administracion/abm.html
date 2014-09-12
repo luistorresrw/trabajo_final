@@ -1,4 +1,5 @@
 {% extends "administracion/logueado_admin.html" %}
+{% load filtro %}
 {% block cuerpo_admin %}
 		<h3> ABM de {{clase |capfirst }} </h3>
 		<hr>
@@ -23,12 +24,12 @@
 				<tbody>
 					{% for elemento in lista %}
 						<tr>
-							{% for fila in tbody %}
+
 								{% autoescape off %}
-									{{fila}}
+									{{tbody|key:elemento.id}}
 								{% endautoescape %}
 								
-							{% endfor %}
+							
 							<td align="center">
 								<a class="btn btn-sm btn-success" href="{% url 'edit_'|add:clase elemento.id %}"> <i class="glyphicon glyphicon-edit"></i> Editar </a>
 								<a class="btn btn-sm btn-danger" href="{% url 'remove_'|add:clase elemento.id %}" onclick="return confirm('Por favor confirme que desea eliminar el registro.')"> <i class="glyphicon glyphicon-trash"></i> Eliminar </a>

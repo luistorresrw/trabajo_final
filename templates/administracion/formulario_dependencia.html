@@ -1,0 +1,22 @@
+{% if not dependencia.id %}
+<form role="form"  method="POST" action ="{% url 'dependencia' %}">{% csrf_token %}
+{% else %}
+<form role="form"  method="POST" action ="{% url 'edit_dependencia' dependencia.id %}">{% csrf_token %}
+{% endif %}
+	<div class="form-group">
+		 <label for="ciudad" class>Unidad Regional</label>{{form.unidades_regionales}}
+	</div>
+	<div class="form-group">
+		 <label for="ciudad" class>Ciudad</label>{{form.ciudad}}
+	</div>
+	<div class="form-group">
+		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+	</div>
+	{% if not dependencia.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'dependencia' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<br><br>
+	 {% endif %}
+</form>

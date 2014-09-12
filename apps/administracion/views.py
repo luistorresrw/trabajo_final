@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades
+from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm
+from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias
 from datetime import date
 import random
 from django.contrib.auth import *
@@ -33,10 +33,10 @@ def pais(request):
         pais = RefPaises()
   
   lista = RefPaises.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
@@ -54,10 +54,10 @@ def edit_pais(request,pais):
       pais = RefPaises()
 
   lista = RefPaises.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'pais':pais,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
@@ -72,10 +72,11 @@ def remove_pais(request,pais):
   form = PaisesForm()
   pais = RefPaises()
   lista = RefPaises.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'pais':pais,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
@@ -95,11 +96,12 @@ def provincia(request):
       provincia = RefProvincia()
 
   lista = RefProvincia.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
-  
+
+      tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+      
+
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
@@ -118,10 +120,10 @@ def edit_provincia(request,prov):
       provincia = RefProvincia()
 
   lista = RefProvincia.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
 
@@ -137,10 +139,10 @@ def remove_provincia(request,prov):
   form = ProvinciasForm()
   provincia = RefProvincia()
   lista = RefProvincia.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
 
@@ -161,10 +163,10 @@ def departamento(request):
       departamento = RefDepartamentos()
 
   lista = RefDepartamentos.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
 
@@ -184,10 +186,10 @@ def edit_departamento(request,dto):
       departamento = RefDepartamentos()
 
   lista = RefDepartamentos.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
 
@@ -203,11 +205,11 @@ def remove_departamento(request,dto):
   form = DepartamentosForm()
   departamento = RefDepartamentos()
   lista = RefDepartamentos.objects.all()
-  tbody = []
+ 
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
-  
+
+      tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
@@ -229,10 +231,10 @@ def ciudad(request):
       ciudad = RefCiudades()
 
   lista = RefCiudades.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))
 
@@ -254,10 +256,10 @@ def edit_ciudad(request,cdd):
       ciudad = RefCiudades()
 
   lista = RefCiudades.objects.all()
-  tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))
 
@@ -274,8 +276,142 @@ def remove_ciudad(request,cdd):
   ciudad = RefCiudades()
   lista = RefCiudades.objects.all()
   tbody = []
+  tbody = {}
   for elemento in lista:
-      fila = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-      tbody.append(fila)
+
+      tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))  
+
+
+@login_required
+def unidad(request):
+  clase = "unidad"
+  columns = ["ciudad","descripcion"]
+  unidad = UnidadesRegionales()
+  form = UnidadesForm()
+  if request.method == 'POST':
+    form = UnidadesForm(request.POST)
+    if form.is_valid():
+      unidad.ciudad         = form.cleaned_data['ciudad']
+      unidad.descripcion    = form.cleaned_data['descripcion']
+      unidad.save()
+      form = UnidadesForm()
+      unidad = UnidadesRegionales()
+
+  lista = UnidadesRegionales.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def edit_unidad(request,id):
+  clase = "unidad"
+  columns = ["ciudad","descripcion"]
+  unidad = UnidadesRegionales.objects.get(id=id)
+  form = UnidadesForm(instance=unidad)
+  if request.method == 'POST':
+    form = UnidadesForm(request.POST)
+    if form.is_valid():
+      unidad.ciudad         = form.cleaned_data['ciudad']
+      unidad.descripcion    = form.cleaned_data['descripcion']
+      unidad.save()
+      form = UnidadesForm()
+      unidad = UnidadesRegionales()
+
+  lista = UnidadesRegionales.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def remove_unidad(request,id):
+  clase = "unidad"
+  columns = ["ciudad","descripcion"]
+  unidad = UnidadesRegionales.objects.get(id=id)
+  try:
+     unidad.delete()
+  except Exception, e:
+     raise e 
+  form = UnidadesForm()
+  unidad = UnidadesRegionales()
+  lista = UnidadesRegionales.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def dependencia(request):
+  clase = "dependencia"
+  columns = ["unidad regional","ciudad","descripcion"]
+  dependencia = Dependencias()
+  form = DependenciasForm()
+  if request.method == 'POST':
+    form = DependenciasForm(request.POST)
+    if form.is_valid():
+      dependencia.unidades_regionales = form.cleaned_data['unidades_regionales']
+      dependencia.ciudad              = form.cleaned_data['ciudad']
+      dependencia.descripcion         = form.cleaned_data['descripcion']
+      dependencia.save()
+      form = DependenciasForm()
+      dependencia = Dependencias()
+
+  lista = Dependencias.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def edit_dependencia(request,id):
+  clase = "dependencia"
+  columns = ["unidad regional","ciudad","descripcion"]
+  dependencia = Dependencias.objects.get(id=id)
+  form = DependenciasForm(instance=dependencia)
+  if request.method == 'POST':
+    form = DependenciasForm(request.POST)
+    if form.is_valid():
+      dependencia.unidades_regionales = form.cleaned_data['unidades_regionales']
+      dependencia.ciudad              = form.cleaned_data['ciudad']
+      dependencia.descripcion         = form.cleaned_data['descripcion']
+      dependencia.save()
+      form = DependenciasForm()
+      dependencia = Dependencias()
+
+  lista = Dependencias.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def remove_dependencia(request,id):
+  clase = "dependencia"
+  columns = ["unidad regional","ciudad","descripcion"]
+  dependencia = Dependencias.objects.get(id=id)
+  try:
+     dependencia.delete()
+  except Exception, e:
+     raise e 
+  form = DependenciasForm()
+  dependencia = Dependencias()
+  lista = Dependencias.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))

@@ -1,0 +1,19 @@
+{% if not unidad.id %}
+<form role="form"  method="POST" action ="{% url 'unidad' %}">{% csrf_token %}
+{% else %}
+<form role="form"  method="POST" action ="{% url 'edit_unidad' unidad.id %}">{% csrf_token %}
+{% endif %}
+	<div class="form-group">
+		 <label for="ciudad" class>Ciudad</label>{{form.ciudad}}
+	</div>
+	<div class="form-group">
+		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+	</div>
+	{% if not unidad.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'unidad' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<br><br>
+	 {% endif %}
+</form>

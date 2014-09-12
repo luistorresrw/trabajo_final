@@ -25,10 +25,25 @@ class DepartamentosForm(forms.ModelForm):
 
 class CiudadesForm(forms.ModelForm):
 	pais 			= forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level','required':'required'})),queryset=RefPaises.objects.all())
-	provincia 		= forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})),queryset=RefProvincia.objects.all())
-	departamento    = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})),queryset=RefDepartamentos.objects.all())
+	provincia 		= forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})),queryset=RefProvincia.objects.all(),required=False)
+	departamento    = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})),queryset=RefDepartamentos.objects.all(),required=False)
 	descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la ciudad','required':'required','autocomplete':'off'})),required=True)
 
 	class Meta:
 		model = RefCiudades
 		exclude = ('lat','longi',)
+
+class UnidadesForm(forms.ModelForm):
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la unidad','required':'required','autocomplete':'off'})),required=True)
+    ciudad = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefCiudades.objects.filter(provincia = RefProvincia.objects.filter(descripcion__contains = 'CHUBUT').values('id'))  )
+    class Meta:
+        model = UnidadesRegionales
+
+class DependenciasForm(forms.ModelForm):
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la unidad','required':'required','autocomplete':'off'})),required=True)
+    ciudad = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefCiudades.objects.filter(provincia = RefProvincia.objects.filter(descripcion__contains = 'CHUBUT').values('id'))  )
+    unidades_regionales = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= UnidadesRegionales.objects.all())
+
+    
+    class Meta:
+        model = Dependencias 
