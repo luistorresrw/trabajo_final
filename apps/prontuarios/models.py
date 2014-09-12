@@ -120,15 +120,23 @@ class Dependencias(models.Model):
         db_table = 'dependencias'
 
 class RefSexo(models.Model):
-    id = models.AutoField(primary_key = True)
-    Sexo_opciones=(
-    ('1','Femenino'),
-    ('2','Masculino'),
-    )
-    descripcion = models.CharField(max_length = 10, choices=Sexo_opciones)
+    #id = models.AutoField(primary_key = True)
+    #descripcion = models.CharField("Seleccione Sexo :", unique=True, max_length=15 )
+    #Sexo_opciones=(
+    #('1','Femenino'),
+    #('2','Masculino'),
+    #)
+    #descripcion = models.CharField(max_length = 10, choices=Sexo_opciones)
+    id = models.AutoField(primary_key=True)
+    descripcion = models.CharField(unique=True, max_length=15 )
 
     def __unicode__(self):
         return u'%s' % (self.descripcion)
+        self.descripcion = self.descripcion.upper()
+
+    def save(self, force_insert=False, force_update= False):
+        self.descripcion = self.descripcion.upper()
+        super(RefSexo, self).save(force_insert,force_update)
   
     class Meta:
         ordering = ['descripcion']

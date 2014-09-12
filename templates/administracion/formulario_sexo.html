@@ -1,0 +1,16 @@
+{% if not sexo.id %}
+<form role="form"  method="POST" action ="{% url 'sexo' %}">{% csrf_token %}
+{% else %}
+<form role="form"  method="POST" action ="{% url 'edit_sexo' sexo.id %}">{% csrf_token %}
+{% endif %}
+	<div class="form-group">
+		 <label for="descripcion" class>Descripci&oacute;n</label>{{form.descripcion}}
+	</div>
+	{% if not sexo.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'sexo' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<br><br>
+	 {% endif %}
+</form>

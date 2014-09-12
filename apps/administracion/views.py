@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias
+from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm
+from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo
 from datetime import date
 import random
 from django.contrib.auth import *
@@ -415,3 +415,130 @@ def remove_dependencia(request,id):
       tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def profesion(request):
+  clase = "profesion"
+  columns = ["descripcion"]
+  profesion = RefOcupacion()
+  form = OcupacionForm()
+  if request.method == 'POST':
+    form = OcupacionForm(request.POST)
+    if form.is_valid():
+      profesion.descripcion    = form.cleaned_data['descripcion']
+      profesion.save()
+      form = OcupacionForm()
+      profesion = RefOcupacion()
+
+  lista = RefOcupacion.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def edit_profesion(request,id):
+  clase = "profesion"
+  columns = ["descripcion"]
+  profesion = RefOcupacion.objects.get(id=id)
+  form = OcupacionForm(instance=profesion)
+  if request.method == 'POST':
+    form = OcupacionForm(request.POST)
+    if form.is_valid():
+      profesion.descripcion    = form.cleaned_data['descripcion']
+      profesion.save()
+      form = OcupacionForm()
+      profesion = RefOcupacion()
+
+  lista = RefOcupacion.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def remove_profesion(request,id):
+  clase = "profesion"
+  columns = ["descripcion"]
+  profesion = RefOcupacion.objects.get(id=id)
+  try:
+     profesion.delete()
+  except Exception, e:
+     raise e 
+  profesion = RefOcupacion()
+  form = OcupacionForm()
+  lista = RefOcupacion.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+
+#------------------------------------------
+@login_required
+def sexo(request):
+  clase = "sexo"
+  columns = ["descripcion"]
+  sexo = RefSexo()
+  form = SexoForm()
+  if request.method =="POST": 
+      form = SexoForm(request.POST)
+      if form.is_valid():
+        sexo.descripcion = form.cleaned_data['descripcion']
+        sexo.save()
+        form = SexoForm()
+        sexo = RefSexo()
+  
+  lista = RefSexo.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+
+
+
+@login_required
+def edit_sexo(request,sexo):
+  clase="sexo"
+  columns = ["descripcion"]
+  sexo = RefSexo.objects.get(id=sexo)
+  form = SexoForm(instance=sexo)
+  if request.method == 'POST':
+    form = SexoForm(request.POST)
+    if form.is_valid():
+      sexo.descripcion = form.cleaned_data['descripcion'];
+      sexo.save()
+      form = SexoForm()
+      pais = RefSexo()
+
+  lista = RefSexo.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
+
+@login_required
+def remove_sexo(request,sexo):
+  clase="sexo"
+  columns = ["descripcion"]
+  sexo = RefSexo.objects.get(id=sexo)
+  try:
+     sexo.delete()
+  except Exception, e:
+     raise e 
+  form = SexoForm()
+  sexo = RefSexo()
+  lista = RefSexo.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
