@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias
+from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm
+from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion
 from datetime import date
 import random
 from django.contrib.auth import *
@@ -415,3 +415,66 @@ def remove_dependencia(request,id):
       tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def profesion(request):
+  clase = "profesion"
+  columns = ["descripcion"]
+  profesion = RefOcupacion()
+  form = OcupacionForm()
+  if request.method == 'POST':
+    form = OcupacionForm(request.POST)
+    if form.is_valid():
+      profesion.descripcion    = form.cleaned_data['descripcion']
+      profesion.save()
+      form = OcupacionForm()
+      profesion = RefOcupacion()
+
+  lista = RefOcupacion.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def edit_profesion(request,id):
+  clase = "profesion"
+  columns = ["descripcion"]
+  profesion = RefOcupacion.objects.get(id=id)
+  form = OcupacionForm(instance=profesion)
+  if request.method == 'POST':
+    form = OcupacionForm(request.POST)
+    if form.is_valid():
+      profesion.descripcion    = form.cleaned_data['descripcion']
+      profesion.save()
+      form = OcupacionForm()
+      profesion = RefOcupacion()
+
+  lista = RefOcupacion.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def remove_profesion(request,id):
+  clase = "profesion"
+  columns = ["descripcion"]
+  profesion = RefOcupacion.objects.get(id=id)
+  try:
+     profesion.delete()
+  except Exception, e:
+     raise e 
+  profesion = RefOcupacion()
+  form = OcupacionForm()
+  lista = RefOcupacion.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))

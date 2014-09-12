@@ -40,10 +40,15 @@ class UnidadesForm(forms.ModelForm):
         model = UnidadesRegionales
 
 class DependenciasForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la unidad','required':'required','autocomplete':'off'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la dependencia','required':'required','autocomplete':'off'})),required=True)
     ciudad = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefCiudades.objects.filter(provincia = RefProvincia.objects.filter(descripcion__contains = 'CHUBUT').values('id'))  )
     unidades_regionales = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= UnidadesRegionales.objects.all())
 
     
     class Meta:
         model = Dependencias 
+
+class OcupacionForm(forms.ModelForm):
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupacion / Profesion / Oficio','required':'required','autocomplete':'off'})),required=True)
+    class Meta:
+        model = RefOcupacion

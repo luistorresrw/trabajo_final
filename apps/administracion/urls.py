@@ -24,4 +24,7 @@ urlpatterns = patterns('',
 	url(r'^dependencia/$',  dependencia, name='dependencia'),
 	url(r'^edit_dependencia/(?P<id>[0-9A-Za-z]+)/$', edit_dependencia ,name='edit_dependencia'),
 	url(r'^remove_dependencia/(?P<id>[0-9A-Za-z]+)/$', remove_dependencia ,name='remove_dependencia'),
+	url(r'^profesion/$',  profesion, name='profesion'),
+	url(r'^edit_profesion/(?P<id>[0-9A-Za-z]+)/$', edit_profesion ,name='edit_profesion'),
+	url(r'^remove_profesion/(?P<id>[0-9A-Za-z]+)/$', remove_profesion ,name='remove_profesion'),
 ) 
