@@ -55,9 +55,24 @@
           </div>
         </div>
         {% if mensaje != "" %}
-         <div class="alert alert-dismissable alert-danger">
+         <!--<div class="alert alert-dismissable alert-danger">
+                      <h4>Error!</h4> <strong>{{mensaje}}</strong> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  </div>-->
+
+
+                  <div class="modal fade modal_error" data-target="#myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog"></br></br></br></br></br></br></br></br></br></br>
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="alert alert-dismissable alert-danger">
                       <h4>Error!</h4> <strong>{{mensaje}}</strong> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+                  
         {% endif %}
       </form>
     </div>

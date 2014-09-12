@@ -15,11 +15,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-pencil"></i>Cambiar contraseña</a></li>
                             {% if user.is_authenticated and user.is_staff %}
-                            <li><a href="{% url 'admin_home' %}" ><i class="glyphicon glyphicon-pencil"></i>Administraci&oacute;n</a></li>
+                            <li><a href="{% url 'admin_home' %}" ><i class="glyphicon glyphicon-wrench"></i>Administraci&oacute;n</a></li>
                             {% endif %}
                             <li class="divider"></li>
                             <li><a href="{% url 'cerrar_sesion' %}"><i class="glyphicon glyphicon-off"></i>Cerrar sesión</a></li>
-
                         </ul>
                     </li>
                 </ul>
