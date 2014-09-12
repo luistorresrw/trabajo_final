@@ -31,6 +31,7 @@ urlpatterns = patterns('',
 	url(r'^edit_dependencia/(?P<id>[0-9A-Za-z]+)/$', edit_dependencia ,name='edit_dependencia'),
 	url(r'^remove_dependencia/(?P<id>[0-9A-Za-z]+)/$', remove_dependencia ,name='remove_dependencia'),
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	url(r'^profesion/$',  profesion, name='profesion'),
 	url(r'^edit_profesion/(?P<id>[0-9A-Za-z]+)/$', edit_profesion ,name='edit_profesion'),
@@ -47,6 +48,11 @@ urlpatterns = patterns('',
 	url(r'^estado_civil/$',  estado_civil, name='estado_civil'),
 	url(r'^edit_estado_civil/(?P<estado_civil>[0-9A-Za-z]+)/$', edit_estado_civil ,name='edit_estado_civil'),
 	url(r'^remove_estado_civil/(?P<estado_civil>[0-9A-Za-z]+)/$', remove_estado_civil ,name='remove_estado_civil'),
+=======
+	url(r'^profesion/$',  profesion, name='profesion'),
+	url(r'^edit_profesion/(?P<id>[0-9A-Za-z]+)/$', edit_profesion ,name='edit_profesion'),
+	url(r'^remove_profesion/(?P<id>[0-9A-Za-z]+)/$', remove_profesion ,name='remove_profesion'),
+>>>>>>> a07ed01... profesion
 =======
 	url(r'^profesion/$',  profesion, name='profesion'),
 	url(r'^edit_profesion/(?P<id>[0-9A-Za-z]+)/$', edit_profesion ,name='edit_profesion'),
