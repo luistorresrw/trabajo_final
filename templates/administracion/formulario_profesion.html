@@ -4,7 +4,11 @@
 <form role="form"  method="POST" action ="{% url 'edit_profesion' profesion.id %}">{% csrf_token %}
 {% endif %}
 	<div class="form-group">
+<<<<<<< HEAD
 		 <label for="descripcion" class>Descripci&oacute;n</label>{{form.descripcion}}
+=======
+		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+>>>>>>> a07ed01... profesion
 	</div>
 	{% if not profesion.id %}
 	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>

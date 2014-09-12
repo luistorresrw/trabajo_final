@@ -50,6 +50,7 @@ class DependenciasForm(forms.ModelForm):
         model = Dependencias 
 
 class OcupacionForm(forms.ModelForm):
+<<<<<<< HEAD
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupación / Profesión / Oficio','required':'required','autocomplete':'off'})),required=True)
     class Meta:
         model = RefOcupacion
@@ -69,3 +70,8 @@ class EstadoCivilForm(forms.ModelForm):
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Estado civil','required':'required'})),required=True)
     class Meta:
         model = RefEstadosciv 
+=======
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupacion / Profesion / Oficio','required':'required','autocomplete':'off'})),required=True)
+    class Meta:
+        model = RefOcupacion
+>>>>>>> a07ed01... profesion
