@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento
+from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm, EstadoCivilForm
+from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento,RefEstadosciv
 from datetime import date
 import random
 from django.contrib.auth import *
@@ -541,8 +541,6 @@ def remove_sexo(request,sexo):
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
 
 
-#------------------------------------------
-
 @login_required
 def tipo_doc(request):
   clase = "tipo_doc"
@@ -606,3 +604,66 @@ def remove_tipo_doc(request,tipo_doc):
 
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))    
 
+#---------------------------------------------------------------------
+
+
+@login_required
+def estado_civil(request):
+  clase = "estado_civil"
+  columns = ["descripcion"]
+  estado_civil = RefEstadosciv()
+  form = EstadoCivilForm()
+  if request.method =="POST": 
+      form = EstadoCivilForm(request.POST)
+      if form.is_valid():
+        estado_civil.descripcion = form.cleaned_data['descripcion']
+        estado_civil.save()
+        form = EstadoCivilForm()
+        estado_civil = RefEstadosciv()
+  
+  lista = RefEstadosciv.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+
+@login_required
+def edit_estado_civil(request,estado_civil):
+  clase="estado_civil"
+  columns = ["descripcion"]
+  estado_civil = RefEstadosciv.objects.get(id=estado_civil)
+  form = EstadoCivilForm(instance=estado_civil)
+  if request.method == 'POST':
+    form = EstadoCivilForm(request.POST)
+    if form.is_valid():
+      estado_civil.descripcion = form.cleaned_data['descripcion'];
+      estado_civil.save()
+      form = EstadoCivilForm()
+      estado_civil = RefEstadosciv()
+
+  lista = RefEstadosciv.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))  
+  
+@login_required
+def remove_estado_civil(request,estado_civil):
+  clase="estado_civil"
+  columns = ["descripcion"]
+  estado_civil = RefEstadosciv.objects.get(id=estado_civil)
+  try:
+     estado_civil.delete()
+  except Exception, e:
+     raise e 
+  form = EstadoCivilForm()
+  estado_civil = RefEstadosciv()
+  lista = RefEstadosciv.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))    

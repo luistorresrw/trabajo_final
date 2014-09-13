@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User 
 from django.contrib import auth
@@ -49,7 +50,7 @@ class DependenciasForm(forms.ModelForm):
         model = Dependencias 
 
 class OcupacionForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupacion / Profesion / Oficio','required':'required','autocomplete':'off'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupación / Profesión / Oficio','required':'required','autocomplete':'off'})),required=True)
     class Meta:
         model = RefOcupacion
 
@@ -63,3 +64,8 @@ class TipoDocumentoForm(forms.ModelForm):
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Tipo de documento','required':'required'})),required=True)
     class Meta:
         model = RefTipoDocumento 
+
+class EstadoCivilForm(forms.ModelForm):
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Estado civil','required':'required'})),required=True)
+    class Meta:
+        model = RefEstadosciv 

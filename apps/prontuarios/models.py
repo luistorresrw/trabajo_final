@@ -135,13 +135,16 @@ class RefSexo(models.Model):
 
 class RefEstadosciv(models.Model):
     id = models.AutoField(primary_key = True)
-    civil_opciones=(
-    ('0','NO REGISTRA'),('1','SOLTERO'),('2','CONCUBINO'),('3','CASAD0'),('4','DIVORCIADO'),('5','VIUDO'),('6','SEPARADO'),)
-    descripcion = models.CharField(max_length = 10, choices=civil_opciones)
+    descripcion = models.CharField(max_length = 10)
 
     def __unicode__(self):
         return u'%s' % (self.descripcion)
-  
+        self.descripcion = self.descripcion.upper()
+    
+    def save(self, force_insert=False,force_update=False):
+        self.descripcion = self.descripcion.upper()
+        super(RefEstadosciv, self).save(force_insert,force_update)
+
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_estadociv' 

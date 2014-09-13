@@ -42,4 +42,8 @@ urlpatterns = patterns('',
 	url(r'^tipo_doc/$',  tipo_doc, name='tipo_doc'),
 	url(r'^edit_tipo_doc/(?P<tipo_doc>[0-9A-Za-z]+)/$', edit_tipo_doc ,name='edit_tipo_doc'),
 	url(r'^remove_tipo_doc/(?P<tipo_doc>[0-9A-Za-z]+)/$', remove_tipo_doc ,name='remove_tipo_doc'),
+
+	url(r'^estado_civil/$',  estado_civil, name='estado_civil'),
+	url(r'^edit_estado_civil/(?P<estado_civil>[0-9A-Za-z]+)/$', edit_estado_civil ,name='edit_estado_civil'),
+	url(r'^remove_estado_civil/(?P<estado_civil>[0-9A-Za-z]+)/$', remove_estado_civil ,name='remove_estado_civil'),
 ) 
