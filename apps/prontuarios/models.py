@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class RefPaises(models.Model):
     id = models.AutoField(primary_key=True)
     descripcion = models.CharField("Seleccione Pais :", unique=True, max_length=45L )
@@ -54,7 +53,6 @@ class RefDepartamentos(models.Model):
         super(RefDepartamentos, self).save(force_insert, force_update)
 
     class Meta:
-        #unique_together=('descripcion','provincia',)
         ordering = ["descripcion"]
         db_table = 'ref_departamentos'
         
@@ -120,13 +118,6 @@ class Dependencias(models.Model):
         db_table = 'dependencias'
 
 class RefSexo(models.Model):
-    #id = models.AutoField(primary_key = True)
-    #descripcion = models.CharField("Seleccione Sexo :", unique=True, max_length=15 )
-    #Sexo_opciones=(
-    #('1','Femenino'),
-    #('2','Masculino'),
-    #)
-    #descripcion = models.CharField(max_length = 10, choices=Sexo_opciones)
     id = models.AutoField(primary_key=True)
     descripcion = models.CharField(unique=True, max_length=15 )
 
@@ -173,19 +164,16 @@ class RefOcupacion(models.Model):
 
 class RefTipoDocumento(models.Model):
     id = models.AutoField(primary_key = True)
-    Doc_opciones=(
-    ('1','DNI'),
-    ('2','LC'),
-    ('3','LE'),
-    ('4','CI'),
-    ('5','PAS'),
-    ('6','NO POSEE'),
-    )
-    descripcion = models.CharField(max_length = 8, choices= Doc_opciones)
+    descripcion = models.CharField(max_length = 19)
 
     def __unicode__(self):
         return u'%s' % (self.descripcion)
- 
+        self.descripcion = self.descripcion.upper()
+    
+    def save(self, force_insert=False,force_update=False):
+        self.descripcion = self.descripcion.upper()
+        super(RefTipoDocumento, self).save(force_insert,force_update)    
+
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_tipodocumento'

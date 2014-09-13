@@ -1,0 +1,16 @@
+{% if not tipo_doc.id %}
+<form role="form"  method="POST" action ="{% url 'tipo_doc' %}">{% csrf_token %}
+{% else %}
+<form role="form"  method="POST" action ="{% url 'edit_tipo_doc' tipo_doc.id %}">{% csrf_token %}
+{% endif %}
+	<div class="form-group">
+		 <label for="descripcion" class>Descripci&oacute;n</label>{{form.descripcion}}
+	</div>
+	{% if not tipo_doc.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'tipo_doc' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<br><br>
+	 {% endif %}
+</form>

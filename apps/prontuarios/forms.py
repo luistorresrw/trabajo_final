@@ -58,3 +58,8 @@ class SexoForm(forms.ModelForm):
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Sexo','required':'required'})),required=True)
     class Meta:
         model = RefSexo
+
+class TipoDocumentoForm(forms.ModelForm):
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Tipo de documento','required':'required'})),required=True)
+    class Meta:
+        model = RefTipoDocumento 

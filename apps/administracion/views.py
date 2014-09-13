@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo
+from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm
+from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento
 from datetime import date
 import random
 from django.contrib.auth import *
@@ -479,7 +479,6 @@ def remove_profesion(request,id):
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
 
-#------------------------------------------
 @login_required
 def sexo(request):
   clase = "sexo"
@@ -501,8 +500,6 @@ def sexo(request):
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
 
-
-
 @login_required
 def edit_sexo(request,sexo):
   clase="sexo"
@@ -515,7 +512,7 @@ def edit_sexo(request,sexo):
       sexo.descripcion = form.cleaned_data['descripcion'];
       sexo.save()
       form = SexoForm()
-      pais = RefSexo()
+      sexo = RefSexo()
 
   lista = RefSexo.objects.all()
   tbody = {}
@@ -542,3 +539,70 @@ def remove_sexo(request,sexo):
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
 
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
+
+
+#------------------------------------------
+
+@login_required
+def tipo_doc(request):
+  clase = "tipo_doc"
+  columns = ["descripcion"]
+  tipo_doc = RefTipoDocumento()
+  form = TipoDocumentoForm()
+  if request.method =="POST": 
+      form = TipoDocumentoForm(request.POST)
+      if form.is_valid():
+        tipo_doc.descripcion = form.cleaned_data['descripcion']
+        tipo_doc.save()
+        form = TipoDocumentoForm()
+        tipo_doc = RefTipoDocumento()
+  
+  lista = RefTipoDocumento.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+
+
+
+@login_required
+def edit_tipo_doc(request,tipo_doc):
+  clase="tipo_doc"
+  columns = ["descripcion"]
+  tipo_doc = RefTipoDocumento.objects.get(id=tipo_doc)
+  form = TipoDocumentoForm(instance=tipo_doc)
+  if request.method == 'POST':
+    form = TipoDocumentoForm(request.POST)
+    if form.is_valid():
+      tipo_doc.descripcion = form.cleaned_data['descripcion'];
+      tipo_doc.save()
+      form = TipoDocumentoForm()
+      tipo_doc = RefTipoDocumento()
+
+  lista = RefTipoDocumento.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))  
+
+@login_required
+def remove_tipo_doc(request,tipo_doc):
+  clase="tipo_doc"
+  columns = ["descripcion"]
+  tipo_doc = RefTipoDocumento.objects.get(id=tipo_doc)
+  try:
+     tipo_doc.delete()
+  except Exception, e:
+     raise e 
+  form = TipoDocumentoForm()
+  tipo_doc = RefTipoDocumento()
+  lista = RefTipoDocumento.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+      tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
+
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))    
+
