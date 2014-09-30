@@ -6,10 +6,18 @@ from django.utils.translation import ugettext_lazy as _
 from models import *
 
 class PaisesForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre del Pais','required':'required'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre del Pais'})))
     class Meta:
 		model = RefPaises
 
+    def clean_descripcion(self):
+        descripcion = self.cleaned_data.get('descripcion', '')
+        dato = len(descripcion.split())
+        if dato == 0:
+            raise forms.ValidationError('El campo descripción no debe estar vacío')
+        return descripcion   
+
+    
 class ProvinciasForm(forms.ModelForm):
     pais 		= forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level','required':'required'})),queryset=RefPaises.objects.all())
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la Provincia','required':'required','autocomplete':'off'})),required=True)

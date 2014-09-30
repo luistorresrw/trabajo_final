@@ -142,7 +142,6 @@ $(document).ready(function () {
     if (e.which) {
       return false;
     }
-
   });
 });
 
@@ -172,3 +171,4 @@ $(document).ready(function(){
           "aaSorting": [[ 1, "desc" ]]
     } );
 });
+

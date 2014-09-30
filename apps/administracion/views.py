@@ -17,31 +17,28 @@ def admin_home(request):
 	
 	return render_to_response('administracion/logueado_admin.html', {}, context_instance = RequestContext(request))
 
-
 @login_required
 def pais(request):
   clase = "pais"
   columns = ["descripcion"]
   pais = RefPaises()
   form = PaisesForm()
-  if request.method =="POST": 
-      form = PaisesForm(request.POST)
-      if form.is_valid():
-        pais.descripcion = form.cleaned_data['descripcion']
-        pais.save()
-        form = PaisesForm()
-        pais = RefPaises()
-  
+  if request.method == 'POST':
+    form = PaisesForm(request.POST)
+    if form.is_valid():
+      pais.descripcion = form.cleaned_data['descripcion']
+      pais.save()
+      form = PaisesForm()
+      pais = RefPaises()
   lista = RefPaises.objects.all()
   tbody = {}
   for elemento in lista:
-
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_pais(request,pais):
-  clase="pais"
+  clase = "pais"
   columns = ["descripcion"]
   pais = RefPaises.objects.get(id=pais)
   form = PaisesForm(instance=pais)
@@ -89,7 +86,7 @@ def provincia(request):
     form = ProvinciasForm(request.POST)
     print form
     if form.is_valid():
-      provincia.pais        = form.cleaned_data['pais']
+      provincia.pais = form.cleaned_data['pais']
       provincia.descripcion = form.cleaned_data['descripcion']
       provincia.save()
       form = ProvinciasForm()

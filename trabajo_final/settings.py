@@ -131,10 +131,10 @@ INSTALLED_APPS = (
     'bootstrap_admin',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
     'apps.accounts',
     'apps.prontuarios',
-    'apps.administracion'
+    'apps.administracion',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

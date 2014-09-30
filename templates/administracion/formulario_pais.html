@@ -1,11 +1,12 @@
 {% if not pais.id %}
-<form role="form"  method="POST" action ="{% url 'pais' %}">{% csrf_token %}
+<form class="form_pais" role="form"  method="POST" action ="{% url 'pais' %}">{% csrf_token %}
 {% else %}
 <form role="form"  method="POST" action ="{% url 'edit_pais' pais.id %}">{% csrf_token %}
 {% endif %}
 	<div class="form-group">
-		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+		 <label for="descripcion" class>Descripción</label>{{form.descripcion}}
 	</div>
+
 	{% if not pais.id %}
 	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
 	 {% else %}
@@ -13,4 +14,9 @@
 	 	<a href="{% url 'pais' %}" class="btn btn-link pull-right" >Cancelar</a>
 	 	<br><br>
 	 {% endif %}
+
+	 
+	 	{{form.descripcion.errors}}
+	 
+	
 </form>
