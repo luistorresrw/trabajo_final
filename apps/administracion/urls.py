@@ -46,4 +46,5 @@ urlpatterns = patterns('',
 	url(r'^estado_civil/$',  estado_civil, name='estado_civil'),
 	url(r'^edit_estado_civil/(?P<estado_civil>[0-9A-Za-z]+)/$', edit_estado_civil ,name='edit_estado_civil'),
 	url(r'^remove_estado_civil/(?P<estado_civil>[0-9A-Za-z]+)/$', remove_estado_civil ,name='remove_estado_civil'),
+
 ) 

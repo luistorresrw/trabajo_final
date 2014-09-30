@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
 from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm, EstadoCivilForm
 from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento,RefEstadosciv
-from datetime import date
+
 import random
 from django.contrib.auth import *
 from django.contrib.auth.decorators import login_required
@@ -476,6 +476,7 @@ def remove_profesion(request,id):
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
 
+
 @login_required
 def sexo(request):
   clase = "sexo"
@@ -601,7 +602,6 @@ def remove_tipo_doc(request,tipo_doc):
 
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))    
 
-#---------------------------------------------------------------------
 
 
 @login_required
@@ -664,3 +664,4 @@ def remove_estado_civil(request,estado_civil):
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
 
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))    
+
