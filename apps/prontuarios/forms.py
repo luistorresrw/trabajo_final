@@ -5,19 +5,13 @@ from django.contrib import auth
 from django.utils.translation import ugettext_lazy as _ 
 from models import *
 
+
 class PaisesForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre del Pais'})))
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre del Pais','autocomplete':'off'})), required=True, error_messages={'required':'El campo "Descripción" es obligatorio.'})
+    
     class Meta:
 		model = RefPaises
-
-    def clean_descripcion(self):
-        descripcion = self.cleaned_data.get('descripcion', '')
-        dato = len(descripcion.split())
-        if dato == 0:
-            raise forms.ValidationError('El campo descripción no debe estar vacío')
-        return descripcion   
-
-    
+        
 class ProvinciasForm(forms.ModelForm):
     pais 		= forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level','required':'required'})),queryset=RefPaises.objects.all())
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombre de la Provincia','required':'required','autocomplete':'off'})),required=True)
@@ -53,30 +47,30 @@ class DependenciasForm(forms.ModelForm):
     ciudad = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefCiudades.objects.filter(provincia = RefProvincia.objects.filter(descripcion__contains = 'CHUBUT').values('id'))  )
     unidades_regionales = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= UnidadesRegionales.objects.all())
 
-    
     class Meta:
         model = Dependencias 
 
 class OcupacionForm(forms.ModelForm):
 
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupación / Profesión / Oficio','required':'required','autocomplete':'off'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Ocupación / Profesión / Oficio','autocomplete':'off'})),required=True, error_messages={'required':'El campo "Descripción" es obligatorio.'})
     class Meta:
         model = RefOcupacion
 
 
 class SexoForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Sexo','required':'required'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Sexo','autocomplete':'off'})),required=True, error_messages={'required':'El campo "Descripción" es obligatorio.'})
     class Meta:
         model = RefSexo
 
 class TipoDocumentoForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Tipo de documento','required':'required'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Tipo de documento','autocomplete':'off'})),required=True, error_messages={'required':'El campo "Descripción" es obligatorio.'})
     class Meta:
         model = RefTipoDocumento 
 
 class EstadoCivilForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Estado civil','required':'required'})),required=True)
+    descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Estado civil','autocomplete':'off'})),required=True, error_messages={'required':'El campo "Descripción" es obligatorio.'})
     class Meta:
         model = RefEstadosciv 
+        
 
    

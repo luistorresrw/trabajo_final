@@ -620,6 +620,7 @@ def estado_civil(request):
   
   lista = RefEstadosciv.objects.all()
   tbody = {}
+
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'

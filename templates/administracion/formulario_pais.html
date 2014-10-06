@@ -1,22 +1,24 @@
+{% if form.descripcion.errors %}
+	<div class="alert alert-danger alert-dismissible" role="alert">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	 	<strong> {{form.descripcion.errors}} </strong>
+	</div> 
+{% endif %}
+
 {% if not pais.id %}
-<form class="form_pais" role="form"  method="POST" action ="{% url 'pais' %}">{% csrf_token %}
+	<form class="form_pais" role="form"  method="POST" action ="{% url 'pais' %}">{% csrf_token %}
 {% else %}
-<form role="form"  method="POST" action ="{% url 'edit_pais' pais.id %}">{% csrf_token %}
+	<form role="form"  method="POST" action ="{% url 'edit_pais' pais.id %}">{% csrf_token %}
 {% endif %}
 	<div class="form-group">
-		 <label for="descripcion" class>Descripción</label>{{form.descripcion}}
+		<label for="descripcion" class>Descripción</label>{{form.descripcion}}
 	</div>
 
-	{% if not pais.id %}
-	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
-	 {% else %}
-	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
-	 	<a href="{% url 'pais' %}" class="btn btn-link pull-right" >Cancelar</a>
-	 	<br><br>
-	 {% endif %}
-
-	 
-	 	{{form.descripcion.errors}}
-	 
-	
-</form>
+{% if not pais.id %}
+ 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+{% else %}
+	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	<a href="{% url 'pais' %}" class="btn btn-link pull-right" >Cancelar</a>
+	<br><br>
+{% endif %}
+	</form>

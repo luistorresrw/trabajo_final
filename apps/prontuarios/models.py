@@ -2,7 +2,7 @@ from django.db import models
 
 class RefPaises(models.Model):
     id = models.AutoField(primary_key=True)
-    descripcion = models.CharField("Seleccione Pais :", unique=True, max_length=45L )
+    descripcion = models.CharField(unique=True, max_length=45L )
     
 
     def __unicode__(self):
@@ -13,6 +13,7 @@ class RefPaises(models.Model):
     class Meta: 
         ordering = ["descripcion"]
         db_table = 'ref_paises'
+        verbose_name='Pais'
 
     def save(self, force_insert=False, force_update=False):
         self.descripcion = self.descripcion.upper()
@@ -132,10 +133,11 @@ class RefSexo(models.Model):
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_sexo'
+        verbose_name='Sexo'
 
 class RefEstadosciv(models.Model):
     id = models.AutoField(primary_key = True)
-    descripcion = models.CharField(max_length = 10)
+    descripcion = models.CharField(unique=True, max_length = 10)
 
     def __unicode__(self):
         return u'%s' % (self.descripcion)
@@ -148,6 +150,7 @@ class RefEstadosciv(models.Model):
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_estadociv' 
+        verbose_name='Estado Civil'
 
 class RefOcupacion(models.Model):
     id = models.AutoField(primary_key= True)
@@ -164,10 +167,11 @@ class RefOcupacion(models.Model):
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_ocupacion'
+        verbose_name='Ocupacion'
 
 class RefTipoDocumento(models.Model):
     id = models.AutoField(primary_key = True)
-    descripcion = models.CharField(max_length = 19)
+    descripcion = models.CharField(unique=True, max_length = 19)
 
     def __unicode__(self):
         return u'%s' % (self.descripcion)
