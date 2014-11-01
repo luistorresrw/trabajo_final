@@ -5,12 +5,14 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
 from apps.accounts.forms import *
-from datetime import date
+
+#
+from django.contrib import auth
+from datetime import datetime, timedelta
+from django.conf import settings
+#
 import random
 from django.contrib.auth import *
-
-
-
 
 def home(request):
 	login = LoginForm()
@@ -29,7 +31,6 @@ def home(request):
 			else:
 				login = LoginForm()
 				mensaje = "Usuario y/o contraseña incorrectos."
-
 
 	values = {
 		'recpass':recpass,
@@ -100,9 +101,9 @@ def verificar_matriz(request,input_pil,user):
 	if input_pil and input_pil != "":
 		matriz = request.session['matriz']
 		pil = user.profile.pil
-		grupo1 = matriz[(input_pil[0])]
-		grupo2 = matriz[(input_pil[1])]
-		grupo3 = matriz[(input_pil[2])]
+		grupo1 = matriz[int(input_pil[0])]
+		grupo2 = matriz[int(input_pil[1])]
+		grupo3 = matriz[int(input_pil[2])]
 		veri1 = pil[0] in grupo1
 		veri2 = pil[1] in grupo2
 		veri3 = pil[2] in grupo3
@@ -141,4 +142,16 @@ def cerrar_sesion(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('home'))
 
-
+class AutoLogout:
+	def process_request(self, request):
+		if not request.user.is_authenticated():
+			return
+		try:
+			if datetime.now() - request.session['last_touch'] > timedelta( 0, settings.AUTO_LOGOUT_DELAY * 60, 0):
+				auth.logout(request) 
+				del request.session['last_touch'] 
+				return
+		except KeyError:
+			pass
+		request.session['last_touch'] = datetime.now()
+	

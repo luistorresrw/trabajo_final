@@ -94,6 +94,7 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
+
 )
 
 LOGIN_URL = '/'
@@ -106,7 +107,21 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    
+
+
+
+
+    
+    
+    'apps.accounts.views.AutoLogout',
+
 )
+
+#SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+AUTO_LOGOUT_DELAY = 1
 
 ROOT_URLCONF = 'trabajo_final.urls'
 
@@ -136,8 +151,6 @@ INSTALLED_APPS = (
     'apps.prontuarios',
     'apps.administracion',
 )
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

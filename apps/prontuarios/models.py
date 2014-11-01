@@ -4,24 +4,26 @@ class RefPaises(models.Model):
     id = models.AutoField(primary_key=True)
     descripcion = models.CharField(unique=True, max_length=45L )
     
+    def save(self, force_insert=False, force_update=False):
+        self.descripcion = self.descripcion.upper()
+        super(RefPaises, self).save(force_insert, force_update)        
+
+    def clean(self):
+        self.descripcion = self.descripcion.upper()
 
     def __unicode__(self):
       return  u'%s' % (self.descripcion)  
       self.descripcion = self.descripcion.upper()
-     
     
     class Meta: 
         ordering = ["descripcion"]
         db_table = 'ref_paises'
         verbose_name='Pais'
 
-    def save(self, force_insert=False, force_update=False):
-        self.descripcion = self.descripcion.upper()
-        super(RefPaises, self).save(force_insert, force_update)        
-
+    
 class RefProvincia(models.Model):
     id = models.AutoField(primary_key=True)
-    descripcion = models.CharField("Ingrese Provincia :", max_length=45L)
+    descripcion = models.CharField(max_length=45L)
     pais = models.ForeignKey(RefPaises,on_delete=models.PROTECT)
     
 
@@ -34,10 +36,14 @@ class RefProvincia(models.Model):
         self.descripcion = self.descripcion.upper()
         super(RefProvincia, self).save(force_insert, force_update)
 
+    def clean(self):
+        self.descripcion = self.descripcion.upper()    
+        
     class Meta:
         unique_together=('descripcion','pais',)
         db_table = 'ref_provincia'
         ordering = ["descripcion"]
+        verbose_name='Provincia'
      
 class RefDepartamentos(models.Model):
     id = models.AutoField(primary_key=True)
@@ -129,15 +135,20 @@ class RefSexo(models.Model):
     def save(self, force_insert=False, force_update= False):
         self.descripcion = self.descripcion.upper()
         super(RefSexo, self).save(force_insert,force_update)
-  
+    
+    def clean(self):
+       self.descripcion = self.descripcion.upper()
+        
+
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_sexo'
         verbose_name='Sexo'
 
+
 class RefEstadosciv(models.Model):
     id = models.AutoField(primary_key = True)
-    descripcion = models.CharField(unique=True, max_length = 10)
+    descripcion = models.CharField(unique=True, max_length = 12)
 
     def __unicode__(self):
         return u'%s' % (self.descripcion)
@@ -146,6 +157,9 @@ class RefEstadosciv(models.Model):
     def save(self, force_insert=False,force_update=False):
         self.descripcion = self.descripcion.upper()
         super(RefEstadosciv, self).save(force_insert,force_update)
+
+    def clean(self):
+        self.descripcion = self.descripcion.upper()
 
     class Meta:
         ordering = ['descripcion']
@@ -164,6 +178,9 @@ class RefOcupacion(models.Model):
         self.descripcion = self.descripcion.upper()
         super(RefOcupacion, self).save(force_insert,force_update)
 
+    def clean(self):
+        self.descripcion = self.descripcion.upper()
+
     class Meta:
         ordering = ['descripcion']
         db_table = 'ref_ocupacion'
@@ -179,7 +196,10 @@ class RefTipoDocumento(models.Model):
     
     def save(self, force_insert=False,force_update=False):
         self.descripcion = self.descripcion.upper()
-        super(RefTipoDocumento, self).save(force_insert,force_update)    
+        super(RefTipoDocumento, self).save(force_insert,force_update) 
+
+    def clean(self):
+        self.descripcion = self.descripcion.upper()   
 
     class Meta:
         ordering = ['descripcion']

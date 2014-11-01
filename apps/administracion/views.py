@@ -484,12 +484,13 @@ def sexo(request):
   sexo = RefSexo()
   form = SexoForm()
   if request.method =="POST": 
-      form = SexoForm(request.POST)
-      if form.is_valid():
-        sexo.descripcion = form.cleaned_data['descripcion']
-        sexo.save()
-        form = SexoForm()
-        sexo = RefSexo()
+    
+    form = SexoForm(request.POST)
+    if form.is_valid():
+      sexo.descripcion = form.cleaned_data['descripcion']
+      sexo.save()
+      form = SexoForm()
+      sexo = RefSexo()
   
   lista = RefSexo.objects.all()
   tbody = {}
@@ -498,6 +499,7 @@ def sexo(request):
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
 
+
 @login_required
 def edit_sexo(request,sexo):
   clase="sexo"
@@ -505,6 +507,7 @@ def edit_sexo(request,sexo):
   sexo = RefSexo.objects.get(id=sexo)
   form = SexoForm(instance=sexo)
   if request.method == 'POST':
+
     form = SexoForm(request.POST)
     if form.is_valid():
       sexo.descripcion = form.cleaned_data['descripcion'];
