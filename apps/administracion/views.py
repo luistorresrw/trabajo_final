@@ -20,6 +20,7 @@ def admin_home(request):
 @login_required
 def pais(request):
   clase = "pais"
+  titulo = "Paises"
   columns = ["descripcion"]
   pais = RefPaises()
   form = PaisesForm()
@@ -34,11 +35,12 @@ def pais(request):
   tbody = {}
   for elemento in lista:
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_pais(request,pais):
   clase = "pais"
+  titulo = "Paises"
   columns = ["descripcion"]
   pais = RefPaises.objects.get(id=pais)
   form = PaisesForm(instance=pais)
@@ -55,11 +57,12 @@ def edit_pais(request,pais):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'pais':pais,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'pais':pais,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
 def remove_pais(request,pais):
   clase="pais"
+  titulo = "Paises"
   columns = ["descripcion"]
   pais = RefPaises.objects.get(id=pais)
   try:
@@ -74,11 +77,12 @@ def remove_pais(request,pais):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
 
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'pais':pais,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'pais':pais,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
 def provincia(request):
   clase = "provincia"
+  titulo = "Provincias"
   columns = ["pais","descripcion"]
   provincia = RefProvincia()
   form = ProvinciasForm()
@@ -99,11 +103,12 @@ def provincia(request):
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
       
 
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_provincia(request,prov):
-  clase="provincia"
+  clase = "provincia"
+  titulo = "Provincias"
   columns = ["pais","descripcion"]
   provincia = RefProvincia.objects.get(id=prov)
   form = ProvinciasForm(instance=provincia)
@@ -122,11 +127,12 @@ def edit_provincia(request,prov):
 
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def remove_provincia(request,prov):
-  clase="provincia"
+  clase = "provincia"
+  titulo = "Provincias"
   columns = ["pais","descripcion"]
   provincia = RefProvincia.objects.get(id=prov)
   try:
@@ -141,11 +147,12 @@ def remove_provincia(request,prov):
 
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def departamento(request):
   clase = "departamento"
+  titulo = "Departamentos"
   columns = ["provincia","descripcion"]
   departamento = RefDepartamentos()
   form = DepartamentosForm()
@@ -165,11 +172,12 @@ def departamento(request):
 
       tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_departamento(request,dto):
   clase="departamento"
+  titulo = "Departamentos"
   columns = ["provincia","descripcion"]
   departamento = RefDepartamentos.objects.get(id=dto)
   form = DepartamentosForm(instance=departamento)
@@ -188,11 +196,12 @@ def edit_departamento(request,dto):
 
       tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def remove_departamento(request,dto):
   clase="departamento"
+  titulo = "Departamentos"
   columns = ["provincia","descripcion"]
   departamento = RefDepartamentos.objects.get(id=dto)
   try:
@@ -207,11 +216,12 @@ def remove_departamento(request,dto):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
 def ciudad(request):
   clase = "ciudad"
+  titulo = "Ciudades"
   columns = ["pais","provincia","descripcion"]
   ciudad = RefCiudades()
   form = CiudadesForm()
@@ -229,15 +239,17 @@ def ciudad(request):
 
   lista = RefCiudades.objects.all()
   tbody = {}
+  print lista
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_ciudad(request,cdd):
-  clase="ciudad"
+  clase = "ciudad"
+  titulo = "Ciudades"
   columns = ["pais","provincia","descripcion"]
   ciudad = RefCiudades.objects.get(id=cdd)
   form = CiudadesForm(instance=ciudad)
@@ -255,14 +267,15 @@ def edit_ciudad(request,cdd):
   lista = RefCiudades.objects.all()
   tbody = {}
   for elemento in lista:
-
+    
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def remove_ciudad(request,cdd):
   clase="ciudad"
+  titulo = "Ciudades"
   columns = ["pais","provincia","descripcion"]
   ciudad = RefCiudades.objects.get(id=cdd)
   try:
@@ -278,12 +291,13 @@ def remove_ciudad(request,cdd):
 
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'ciudad':ciudad,'tbody':tbody},context_instance=RequestContext(request))  
 
 
 @login_required
 def unidad(request):
   clase = "unidad"
+  titulo = "Unidades Regionales"
   columns = ["ciudad","descripcion"]
   unidad = UnidadesRegionales()
   form = UnidadesForm()
@@ -302,11 +316,12 @@ def unidad(request):
 
       tbody[elemento.id] = '<td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_unidad(request,id):
   clase = "unidad"
+  titulo = "Unidades Regionales"
   columns = ["ciudad","descripcion"]
   unidad = UnidadesRegionales.objects.get(id=id)
   form = UnidadesForm(instance=unidad)
@@ -325,11 +340,12 @@ def edit_unidad(request,id):
 
       tbody[elemento.id] = '<td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def remove_unidad(request,id):
   clase = "unidad"
+  titulo = "Unidades Regionales"
   columns = ["ciudad","descripcion"]
   unidad = UnidadesRegionales.objects.get(id=id)
   try:
@@ -344,11 +360,12 @@ def remove_unidad(request,id):
 
       tbody[elemento.id] = '<td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'unidad':unidad,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def dependencia(request):
   clase = "dependencia"
+  titulo = "Dependencias Policiales"
   columns = ["unidad regional","ciudad","descripcion"]
   dependencia = Dependencias()
   form = DependenciasForm()
@@ -368,11 +385,12 @@ def dependencia(request):
 
       tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_dependencia(request,id):
   clase = "dependencia"
+  titulo = "Dependencias Policiales"
   columns = ["unidad regional","ciudad","descripcion"]
   dependencia = Dependencias.objects.get(id=id)
   form = DependenciasForm(instance=dependencia)
@@ -392,11 +410,12 @@ def edit_dependencia(request,id):
 
       tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def remove_dependencia(request,id):
   clase = "dependencia"
+  titulo = "Dependencias Policiales"
   columns = ["unidad regional","ciudad","descripcion"]
   dependencia = Dependencias.objects.get(id=id)
   try:
@@ -411,11 +430,12 @@ def remove_dependencia(request,id):
 
       tbody[elemento.id] = '<td>'+elemento.unidades_regionales.descripcion+'</td><td>'+elemento.ciudad.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'dependencia':dependencia,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def profesion(request):
   clase = "profesion"
+  titulo = "Profesiones y Oficios"
   columns = ["descripcion"]
   profesion = RefOcupacion()
   form = OcupacionForm()
@@ -433,11 +453,12 @@ def profesion(request):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_profesion(request,id):
   clase = "profesion"
+  titulo = "Profesiones y Oficios"
   columns = ["descripcion"]
   profesion = RefOcupacion.objects.get(id=id)
   form = OcupacionForm(instance=profesion)
@@ -455,11 +476,12 @@ def edit_profesion(request,id):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def remove_profesion(request,id):
   clase = "profesion"
+  titulo = "Profesiones y Oficios"
   columns = ["descripcion"]
   profesion = RefOcupacion.objects.get(id=id)
   try:
@@ -474,12 +496,13 @@ def remove_profesion(request,id):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
   
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'profesion':profesion,'tbody':tbody},context_instance=RequestContext(request))
 
 
 @login_required
 def sexo(request):
   clase = "sexo"
+  titulo = "Sexos"
   columns = ["descripcion"]
   sexo = RefSexo()
   form = SexoForm()
@@ -497,12 +520,13 @@ def sexo(request):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'tbody':tbody},context_instance=RequestContext(request))
 
 
 @login_required
 def edit_sexo(request,sexo):
   clase="sexo"
+  titulo = "Sexos"
   columns = ["descripcion"]
   sexo = RefSexo.objects.get(id=sexo)
   form = SexoForm(instance=sexo)
@@ -520,11 +544,12 @@ def edit_sexo(request,sexo):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
 def remove_sexo(request,sexo):
   clase="sexo"
+  titulo = "Sexos"
   columns = ["descripcion"]
   sexo = RefSexo.objects.get(id=sexo)
   try:
@@ -539,12 +564,13 @@ def remove_sexo(request,sexo):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
 
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'sexo':sexo,'tbody':tbody},context_instance=RequestContext(request))  
 
 
 @login_required
 def tipo_doc(request):
   clase = "tipo_doc"
+  titulo = "Tipos de Documentos"
   columns = ["descripcion"]
   tipo_doc = RefTipoDocumento()
   form = TipoDocumentoForm()
@@ -561,13 +587,14 @@ def tipo_doc(request):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
 
 
 
 @login_required
 def edit_tipo_doc(request,tipo_doc):
   clase="tipo_doc"
+  titulo = "Tipos de Documentos"
   columns = ["descripcion"]
   tipo_doc = RefTipoDocumento.objects.get(id=tipo_doc)
   form = TipoDocumentoForm(instance=tipo_doc)
@@ -584,11 +611,12 @@ def edit_tipo_doc(request,tipo_doc):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))  
 
 @login_required
 def remove_tipo_doc(request,tipo_doc):
   clase="tipo_doc"
+  titulo = "Tipos de Documentos"
   columns = ["descripcion"]
   tipo_doc = RefTipoDocumento.objects.get(id=tipo_doc)
   try:
@@ -603,13 +631,14 @@ def remove_tipo_doc(request,tipo_doc):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
 
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))    
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tipo_doc':tipo_doc,'tbody':tbody},context_instance=RequestContext(request))    
 
 
 
 @login_required
 def estado_civil(request):
   clase = "estado_civil"
+  titulo = "Estados Civiles"
   columns = ["descripcion"]
   estado_civil = RefEstadosciv()
   form = EstadoCivilForm()
@@ -627,11 +656,12 @@ def estado_civil(request):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request))
 
 @login_required
 def edit_estado_civil(request,estado_civil):
-  clase="estado_civil"
+  clase= "estado_civil"
+  titulo = "Estados Civiles"
   columns = ["descripcion"]
   estado_civil = RefEstadosciv.objects.get(id=estado_civil)
   form = EstadoCivilForm(instance=estado_civil)
@@ -648,11 +678,12 @@ def edit_estado_civil(request,estado_civil):
   for elemento in lista:
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))  
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))  
   
 @login_required
 def remove_estado_civil(request,estado_civil):
-  clase="estado_civil"
+  clase = "estado_civil"
+  titulo = "Estados Civiles"
   columns = ["descripcion"]
   estado_civil = RefEstadosciv.objects.get(id=estado_civil)
   try:
@@ -667,5 +698,5 @@ def remove_estado_civil(request,estado_civil):
 
       tbody[elemento.id] = '<td>'+elemento.descripcion+'</td>'
 
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista,'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))    
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))    
 

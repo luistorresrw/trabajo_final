@@ -172,3 +172,9 @@ $(document).ready(function(){
     } );
 });
 
+
+/*==================================
+ * FUNCION DE MENSAJE DE AUTOLOGOUT
+ *==================================*/
+
+ 

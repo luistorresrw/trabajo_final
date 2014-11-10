@@ -54,7 +54,7 @@
             <button class= "cerrar btn btn-sm btn-primary" type="submit">Enviar</button>{% csrf_token %}
           </div>
         </div>
-        {% if mensaje != "" %}
+        {% if not mensaje == "" %}
          <!--<div class="alert alert-dismissable alert-danger">
                       <h4>Error!</h4> <strong>{{mensaje}}</strong> <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                   </div>-->

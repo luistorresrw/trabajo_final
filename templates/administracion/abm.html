@@ -1,7 +1,7 @@
 {% extends "administracion/logueado_admin.html" %}
 {% load filtro %}
 {% block cuerpo_admin %}
-		<h3> ABM de {{clase | capfirst }} </h3>
+		<h3> Administración de {{ titulo }} </h3>
 		
 		<hr>
 			{% with "administracion/formulario_"|add:clase|add:".html" as template %}
