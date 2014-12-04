@@ -1,0 +1,89 @@
+{% if not personas.id %}
+	<form role="form"  method="POST" action ="{% url 'personas' %}">{% csrf_token %}
+{% else %}
+	<form role="form"  method="POST" action ="{% url 'edit_personas' personas.id %}">{% csrf_token %}
+{% endif %}
+<div class="row clear-fix">	
+	<div class="form-group col-sm-3">
+		 <label for="apellidos" class>Apellidos</label>{{form.apellidos}}
+	</div>
+	<div class="form-group col-sm-4">
+		 <label for="nombres" class>Nombres</label>{{form.nombres}}
+	</div>
+	<div class="form-group col-sm-2">
+		 <label for="tipo documento" class>Tipo</label>{{form.tipo_doc}}
+	</div>
+	<div class="form-group col-sm-3">
+		 <label for="apellidos" class>Nro. Documento</label>{{form.nro_doc}}
+	</div>
+	<div class="form-group col-sm-3">
+		 <label for="apellidos" class>Pais de Nacimiento</label>{{form.pais_nac}}
+	</div>
+	<div class="form-group col-sm-4">
+		 <label for="apellidos" class>Ciudad de Nacimiento</label>{{form.ciudad_nac}}
+	</div>
+	<div class="form-group col-sm-5">
+		 <label for="apellidos" class>Ciudad de Residencia</label>{{form.ciudad_res}}
+	</div>
+	<div class="form-group col-sm-3">
+		 <label for="apellidos" class>Estado Civil</label>{{form.estado_civil}}
+	</div>
+	<div class="form-group col-sm-4">
+		 <label for="apellidos" class>Sexo</label>{{form.sexo_id}}
+	</div>
+	<div class="form-group col-sm-2">
+		 <label for="apellidos">Fecha de Nac.</label></br>
+		 <div class="input-group input-append date" id="datePicker">
+            {{form.fecha_nac}}<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar white"></span>
+         </div>
+	</div>
+	
+	<div class="form-group col-sm-3">
+		 <label for="apellidos" class>Nro. de celular</label>{{form.celular}}
+	</div>
+	<input type="hidden" name="ocupacion" id="ocupacion" value="8">
+	
+</div>	
+
+
+
+
+    
+        
+      
+    
+
+    
+        
+        
+            
+        
+ 
+
+    
+
+    
+
+
+
+
+
+
+
+	{% if form.descripcion.errors %} 
+		<div class="alert alert-danger alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<strong> {{form.descripcion.errors}} </strong>
+		</div>
+	{% endif %}
+
+
+
+	{% if not personas.id %}
+	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 {% else %}
+	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<a href="{% url 'persona' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<br><br>
+	 {% endif %}
+</form>

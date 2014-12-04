@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm, EstadoCivilForm
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento,RefEstadosciv
+from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm, EstadoCivilForm, PersonasForm         
+from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento,RefEstadosciv, Personas
 
 import random
 from django.contrib.auth import *
@@ -506,7 +506,7 @@ def sexo(request):
   columns = ["descripcion"]
   sexo = RefSexo()
   form = SexoForm()
-  if request.method =="POST": 
+  if request.method =='POST': 
     
     form = SexoForm(request.POST)
     if form.is_valid():
@@ -574,7 +574,7 @@ def tipo_doc(request):
   columns = ["descripcion"]
   tipo_doc = RefTipoDocumento()
   form = TipoDocumentoForm()
-  if request.method =="POST": 
+  if request.method =='POST': 
       form = TipoDocumentoForm(request.POST)
       if form.is_valid():
         tipo_doc.descripcion = form.cleaned_data['descripcion']
@@ -642,7 +642,7 @@ def estado_civil(request):
   columns = ["descripcion"]
   estado_civil = RefEstadosciv()
   form = EstadoCivilForm()
-  if request.method =="POST": 
+  if request.method =='POST': 
       form = EstadoCivilForm(request.POST)
       if form.is_valid():
         estado_civil.descripcion = form.cleaned_data['descripcion']
@@ -700,3 +700,49 @@ def remove_estado_civil(request,estado_civil):
 
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))    
 
+#########################################
+
+@login_required
+def personas(request):
+  clase = "personas"
+  titulo = "Personas"
+  columns = ["Apellidos y Nombres", "Tipo y Nro. Doc", "Nro. Celular"]
+  personas = Personas()
+  form = PersonasForm()
+  if request.method =='POST': 
+      form = PersonasForm(request.POST)
+      print form.errors
+      if form.is_valid():
+        personas.apellidos = form.cleaned_data['apellidos']
+        personas.nombres = form.cleaned_data['nombres']
+        personas.tipo_doc = form.cleaned_data['tipo_doc']
+        personas.nro_doc = form.cleaned_data['nro_doc']
+        personas.ciudad_nac = form.cleaned_data['ciudad_nac']
+        personas.pais_nac = form.cleaned_data['pais_nac']
+        personas.ciudad_res = form.cleaned_data['ciudad_res']
+        personas.sexo_id = form.cleaned_data['sexo_id']
+        personas.ocupacion = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
+        personas.cuit = form.cleaned_data['cuit']
+        personas.celular = form.cleaned_data['celular']
+        personas.fecha_nac = form.cleaned_data['fecha_nac']
+        personas.estado_civil = form.cleaned_data['estado_civil']
+        personas.alias = form.cleaned_data['alias']
+        personas.save()
+        form = PersonasForm()
+        personas = Personas()
+        
+  lista = Personas.objects.all()
+  tbody = {}
+
+  for elemento in lista:
+
+    tbody[elemento.id] = '<td>'+elemento.apellidos+'/'+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+'/'+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
+
+def edit_personas(request,id):
+  pass
+
+
+def remove_personas(request,id):
+  pass
+  

@@ -227,29 +227,30 @@ class Personas(models.Model):
         return u'%s %s' % (self.apellidos, self.nombres)
         self.apellidos = self.descripcion.upper()
         self.nombres = self.nombres.upper()
- 
+
     def save(self, force_insert = False, force_update = False):
         self.apellidos = self.apellidos.upper()
         self.nombres = self.nombres.upper()
         super(Personas, self).save(force_insert, force_update)    
 
+    def clean(self):   
+        self.apellidos = self.apellidos.upper()
+        self.nombres = self.nombres.upper()
+        self.tipo_doc = self.tipo_doc
+        self.nro_doc = self.nro_doc
+        self.ciudad_nac = self.ciudad_nac
+        self.pais_nac = self.pais_nac
+        self.ciudad_res = self.ciudad_res
+        self.sexo_id = self.sexo_id
+        self.ocupacion = self.ocupacion
+        self.cuit = self.cuit
+        self.celular = self.celular
+        self.fecha_nac = self.fecha_nac
+        self.estado_civil = self.estado_civil
+        self.alias = self.alias.upper() 
+
     class Meta:
         unique_together=('tipo_doc','nro_doc','apellidos','nombres',)
         ordering = ['apellidos']
         db_table = 'personas'
-
-class Personal(models.Model):
-    id = models.AutoField(primary_key=True)
-    persona_id = models.OneToOneField('Personas', unique=True,on_delete=models.PROTECT)
-    legajo = models.CharField(max_length=6)
-    credencial = models.IntegerField()
-    nro_cuenta_bco = models.CharField(max_length=20)
-    nro_seros = models.CharField(max_length=15)
-
-    def __unicode__(self):
-        return u'%s' % (self.id)
-    
-    class Meta:
-
-        ordering = ['id']
-        db_table = 'personal'
+        

@@ -70,6 +70,22 @@ class EstadoCivilForm(forms.ModelForm):
     descripcion = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Estado civil','autocomplete':'off'})),required=True)
     class Meta:
         model = RefEstadosciv 
-        
+  
+class PersonasForm(forms.ModelForm):
+    apellidos = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Apellidos','autocomplete':'off'})),required=True)
+    nombres = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nombres','autocomplete':'off'})),required=True)
+    tipo_doc = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefTipoDocumento.objects.all())
+    nro_doc = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nro de documento','autocomplete':'off'})),required=True)
+    ciudad_nac = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefCiudades.objects.all())
+    pais_nac = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefPaises.objects.all())
+    ciudad_res = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefCiudades.objects.all())
+    sexo_id =  forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefSexo.objects.all())
+    ocupacion = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefOcupacion.objects.all())
+    cuit = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nro. de CUIT','autocomplete':'off'})),required=False)
+    celular = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Nro. de celular','autocomplete':'off'})),required=False)
+    fecha_nac = forms.DateField(input_formats=['%d/%m/%Y', '%m/%d/%Y',], required=True, widget=forms.DateInput(format = '%d/%m/%Y',attrs=dict({'class':'form-control input-block-level, datePicker', 'name':'date'})))
+    estado_civil = forms.ModelChoiceField(widget=forms.Select(attrs=dict({'class':'form-control input-block-level'})), queryset= RefEstadosciv.objects.all())
+    alias = forms.CharField(widget=forms.TextInput(attrs=dict({'class':'form-control input-block-level', 'placeholder':'Alias','autocomplete':'off'})),required=False)
+    class Meta:
+        model = Personas
 
-   
