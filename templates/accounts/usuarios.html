@@ -1,0 +1,42 @@
+{% extends "administracion/logueado_admin.html" %}
+{% load filtro %}
+{% block cuerpo_admin %}
+		<h3> Administración de {{ titulo }} </h3>
+		
+		<hr>
+			{% with "accounts/formulario_"|add:clase|add:".html" as template %}
+				{% include template %}
+			{% endwith %}
+
+		<hr>
+		<h4> <b>Listado General</b> </h4>
+			<table class="table table-bordered table-condensed" id="table" name="table">
+				<thead>
+					<tr>
+						{% for columna in columns %}
+							<th>{{ columna | capfirst }}</th>
+						{% endfor %}
+						<th>
+							
+						</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					{% for elemento in lista %}
+						<tr>
+
+								{% autoescape off %}
+									{{tbody | key:elemento.id}}
+								{% endautoescape %}
+														
+							<td align="center">
+								<a class="btn btn-sm btn-success" href="{% url 'edit_'|add:clase elemento.id %}"> <i class="glyphicon glyphicon-edit"></i> Editar </a>
+								<a class="btn btn-sm btn-danger" href="{% url 'remove_'|add:clase elemento.id %}" onclick="return confirm('Por favor confirme que desea eliminar el registro.')"> <i class="glyphicon glyphicon-trash"></i> Eliminar </a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	
+{% endblock cuerpo_admin %}
