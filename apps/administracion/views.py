@@ -4,8 +4,8 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm,ProvinciasForm,DepartamentosForm,CiudadesForm,UnidadesForm,DependenciasForm,OcupacionForm,SexoForm,TipoDocumentoForm, EstadoCivilForm, PersonasForm         
-from apps.prontuarios.models import RefPaises,RefProvincia,RefDepartamentos,RefCiudades,UnidadesRegionales,Dependencias,RefOcupacion,RefSexo,RefTipoDocumento,RefEstadosciv, Personas
+from apps.prontuarios.forms import PaisesForm, ProvinciasForm, DepartamentosForm, CiudadesForm, UnidadesForm, DependenciasForm, OcupacionForm, SexoForm, TipoDocumentoForm, EstadoCivilForm, PersonasForm         
+from apps.prontuarios.models import RefPaises, RefProvincia, RefDepartamentos, RefCiudades, UnidadesRegionales, Dependencias, RefOcupacion, RefSexo, RefTipoDocumento, RefEstadosciv, Personas
 
 import random
 from django.contrib.auth import *
@@ -115,7 +115,7 @@ def edit_provincia(request,prov):
   if request.method == 'POST':
     form = ProvinciasForm(request.POST)
     if form.is_valid():
-      provincia.pais        = form.cleaned_data['pais'];
+      provincia.pais = form.cleaned_data['pais'];
       provincia.descripcion = form.cleaned_data['descripcion']
       provincia.save()
       form = ProvinciasForm()
@@ -160,7 +160,7 @@ def departamento(request):
     form = DepartamentosForm(request.POST)
     print form
     if form.is_valid():
-      departamento.provincia   = form.cleaned_data['provincia']
+      departamento.provincia = form.cleaned_data['provincia']
       departamento.descripcion = form.cleaned_data['descripcion']
       departamento.save()
       form = DepartamentosForm()
@@ -184,7 +184,7 @@ def edit_departamento(request,dto):
   if request.method == 'POST':
     form = DepartamentosForm(request.POST)
     if form.is_valid():
-      departamento.provincia   = form.cleaned_data['provincia'];
+      departamento.provincia = form.cleaned_data['provincia'];
       departamento.descripcion = form.cleaned_data['descripcion']
       departamento.save()
       form = DepartamentosForm()
@@ -229,10 +229,10 @@ def ciudad(request):
     form = CiudadesForm(request.POST)
     print form
     if form.is_valid():
-      ciudad.pais           = form.cleaned_data['pais']
-      ciudad.provincia      = form.cleaned_data['provincia']
-      ciudad.departamento   = form.cleaned_data['departamento']
-      ciudad.descripcion    = form.cleaned_data['descripcion']
+      ciudad.pais = form.cleaned_data['pais']
+      ciudad.provincia = form.cleaned_data['provincia']
+      ciudad.departamento = form.cleaned_data['departamento']
+      ciudad.descripcion = form.cleaned_data['descripcion']
       ciudad.save()
       form = CiudadesForm()
       ciudad = RefCiudades()
@@ -256,10 +256,10 @@ def edit_ciudad(request,cdd):
   if request.method == 'POST':
     form = CiudadesForm(request.POST)
     if form.is_valid():
-      ciudad.pais           = form.cleaned_data['pais']
-      ciudad.provincia      = form.cleaned_data['provincia']
-      ciudad.departamento   = form.cleaned_data['departamento']
-      ciudad.descripcion    = form.cleaned_data['descripcion']
+      ciudad.pais = form.cleaned_data['pais']
+      ciudad.provincia = form.cleaned_data['provincia']
+      ciudad.departamento = form.cleaned_data['departamento']
+      ciudad.descripcion = form.cleaned_data['descripcion']
       ciudad.save()
       form = CiudadesForm()
       ciudad = RefCiudades()
@@ -304,8 +304,8 @@ def unidad(request):
   if request.method == 'POST':
     form = UnidadesForm(request.POST)
     if form.is_valid():
-      unidad.ciudad         = form.cleaned_data['ciudad']
-      unidad.descripcion    = form.cleaned_data['descripcion']
+      unidad.ciudad = form.cleaned_data['ciudad']
+      unidad.descripcion = form.cleaned_data['descripcion']
       unidad.save()
       form = UnidadesForm()
       unidad = UnidadesRegionales()
@@ -328,8 +328,8 @@ def edit_unidad(request,id):
   if request.method == 'POST':
     form = UnidadesForm(request.POST)
     if form.is_valid():
-      unidad.ciudad         = form.cleaned_data['ciudad']
-      unidad.descripcion    = form.cleaned_data['descripcion']
+      unidad.ciudad = form.cleaned_data['ciudad']
+      unidad.descripcion = form.cleaned_data['descripcion']
       unidad.save()
       form = UnidadesForm()
       unidad = UnidadesRegionales()
@@ -373,8 +373,8 @@ def dependencia(request):
     form = DependenciasForm(request.POST)
     if form.is_valid():
       dependencia.unidades_regionales = form.cleaned_data['unidades_regionales']
-      dependencia.ciudad              = form.cleaned_data['ciudad']
-      dependencia.descripcion         = form.cleaned_data['descripcion']
+      dependencia.ciudad = form.cleaned_data['ciudad']
+      dependencia.descripcion = form.cleaned_data['descripcion']
       dependencia.save()
       form = DependenciasForm()
       dependencia = Dependencias()
@@ -398,8 +398,8 @@ def edit_dependencia(request,id):
     form = DependenciasForm(request.POST)
     if form.is_valid():
       dependencia.unidades_regionales = form.cleaned_data['unidades_regionales']
-      dependencia.ciudad              = form.cleaned_data['ciudad']
-      dependencia.descripcion         = form.cleaned_data['descripcion']
+      dependencia.ciudad = form.cleaned_data['ciudad']
+      dependencia.descripcion = form.cleaned_data['descripcion']
       dependencia.save()
       form = DependenciasForm()
       dependencia = Dependencias()
@@ -700,14 +700,12 @@ def remove_estado_civil(request,estado_civil):
 
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'estado_civil':estado_civil,'tbody':tbody},context_instance=RequestContext(request))    
 
-#########################################
-
 @login_required
 def personas(request):
   clase = "personas"
   titulo = "Personas"
   columns = ["Apellidos y Nombres", "Tipo y Nro. Doc", "Nro. Celular"]
-  personas = Personas()
+  persona = Personas()
   form = PersonasForm()
   if request.method =='POST': 
       form = PersonasForm(request.POST)
@@ -736,13 +734,45 @@ def personas(request):
 
   for elemento in lista:
 
-    tbody[elemento.id] = '<td>'+elemento.apellidos+'/'+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+'/'+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
+    tbody[elemento.id] = '<td>'+elemento.apellidos+', '+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+' '+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
 
+@login_required
 def edit_personas(request,id):
-  pass
+  clase = "personas"
+  titulo = "Personas"
+  columns = ["Apellidos y Nombres", "Tipo y Nro. Doc", "Nro. Celular"]
+  persona = Personas.objects.get(id=id)
+  form = PersonasForm(instance=persona)
+  if request.method == 'POST':
+    form = Personas(request.POST)
+    if form.is_valid():
+      personas.apellidos = form.cleaned_data['apellidos']
+      personas.nombres = form.cleaned_data['nombres']
+      personas.tipo_doc = form.cleaned_data['tipo_doc']
+      personas.nro_doc = form.cleaned_data['nro_doc']
+      personas.ciudad_nac = form.cleaned_data['ciudad_nac']
+      personas.pais_nac = form.cleaned_data['pais_nac']
+      personas.ciudad_res = form.cleaned_data['ciudad_res']
+      personas.sexo_id = form.cleaned_data['sexo_id']
+      personas.ocupacion = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
+      personas.cuit = form.cleaned_data['cuit']
+      personas.celular = form.cleaned_data['celular']
+      personas.fecha_nac = form.cleaned_data['fecha_nac']
+      personas.estado_civil = form.cleaned_data['estado_civil']
+      personas.alias = form.cleaned_data['alias']
+      personas.save()  
+      form = PersonasForm()
+      personas = Personas()
 
+  lista = Personas.objects.all()
+  tbody = {}
+  for elemento in lista:
 
+    tbody[elemento.id] = '<td>'+elemento.apellidos+', '+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+' '+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
+  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
+
+@login_required
 def remove_personas(request,id):
   pass
   

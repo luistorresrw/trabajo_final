@@ -227,7 +227,7 @@ class Personas(models.Model):
         return u'%s %s' % (self.apellidos, self.nombres)
         self.apellidos = self.descripcion.upper()
         self.nombres = self.nombres.upper()
-
+        
     def save(self, force_insert = False, force_update = False):
         self.apellidos = self.apellidos.upper()
         self.nombres = self.nombres.upper()
