@@ -775,5 +775,19 @@ def edit_personas(request,id):
 
 @login_required
 def remove_personas(request,id):
-  pass
-  
+  clase = "personas"
+  titulo = "Personas"
+  columns = ["Apellidos y Nombres", "Tipo y Nro. Doc", "Nro. Celular"]
+  persona = Personas.objects.get(id=id)
+  try:
+     persona.delete()
+  except Exception, e:
+     raise e 
+  form = PersonasForm()
+  persona = Personas()
+  lista = Personas.objects.all()
+  tbody = {}
+  for elemento in lista:
+
+    tbody[elemento.id] = '<td>'+elemento.apellidos+', '+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+' '+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
+  return render_to_response('administracion/abm.html',{'personas':persona, 'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
