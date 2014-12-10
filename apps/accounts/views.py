@@ -5,11 +5,12 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
 from apps.accounts.forms import *
-
+from apps.prontuarios.models import Personas
 #
 from django.contrib import auth
 from datetime import datetime, timedelta
 from django.conf import settings
+from django.core import serializers
 #
 import random
 from django.contrib.auth import *
@@ -162,3 +163,37 @@ class AutoLogout:
 			pass
 		request.session['last_touch'] = datetime.now()
 	
+
+def usuarios(request):
+	clase = "user"
+	titulo = "Usuarios"
+	columns = ["Usuario","Nombre","Email","Fecha Alta","Ultimo Ingreso"]
+	usuarios = User()
+	form = UserForm()
+	if request.method == 'POST':
+		form = UserForm(request.POST)
+		"""if form.is_valid():
+			pais.descripcion = form.cleaned_data['descripcion']
+			pais.save()
+			form = PaisesForm()
+			pais = RefPaises()"""
+	lista = User.objects.all()
+	tbody = {}
+	for elemento in lista:
+		tbody[elemento.id] = '<td>'+elemento.username+'</td><td>'+elemento.last_name+', '+elemento.first_name+'</td><td>'+elemento.email+'</td><td>'+elemento.date_joined.strftime('%d/%m/%Y')+'</td><td>'+elemento.last_login.strftime('%d/%m/%Y')+'</td>'
+  	return render_to_response('accounts/usuarios.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'tbody':tbody},context_instance=RequestContext(request))
+
+
+def edit_usuarios(request,id):
+	pass
+
+
+
+def remove_usuarios(request,id):
+	pass
+
+def obtener_persona(request,dni):
+	data = request.POST
+  	persona = Personas.objects.filter(nro_doc = dni)[:1]
+  	data = serializers.serialize("json", persona)
+  	return HttpResponse(data, mimetype='application/json')

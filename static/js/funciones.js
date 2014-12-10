@@ -214,3 +214,41 @@ $(document).ready(function() {
         }
     });
 });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+$(document).ready(function(){
+    $('#verificar').click(function(){
+        $('#error-documento').remove();
+        documento = $('#id_username');
+        if(documento.val()==''){
+            $('#div-documento').append('<br><p class="bg-danger" id="error-documento">Debe ingresar el numero de documento</p>');
+        }else{
+            toLoad = '../obtener_persona/'+documento.val()+'/';
+            $.get(toLoad,function(data){
+                if(data.length > 0){
+                    for(var i = 0; i < data.length; i++){
+                        $('#id_last_name').removeAttr('disabled');
+                        $('#id_last_name').val(data[i].fields["apellidos"]);
+                        $('#id_first_name').removeAttr('disabled');
+                        $('#id_first_name').val(data[i].fields["nombres"]);
+                        $('#id_email').removeAttr('disabled');
+                        $('#div-documento').append('<input type="hidden" id="persona_id" name="persona_id" value="'+data[i].fields["id"]+'"/>');      
+                    }
+                }else{
+                    $('#div-documento').append('<br><p class="bg-danger" id="error-documento">La persona que busca no existe.</p>');      
+                    $('#id_last_name').attr('disabled','disabled');
+                    $('#id_last_name').val("");
+                    $('#id_first_name').attr('disabled','disabled');
+                    $('#id_first_name').val("");
+                    $('#id_email').attr('disabled','disabled');
+                }
+            },"json");
+        }
+    });
+     $('.number_input').keypress(function(tecla) {
+        if(tecla.charCode < 48 || tecla.charCode > 57) return false;
+    });
+});

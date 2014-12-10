@@ -711,23 +711,23 @@ def personas(request):
       form = PersonasForm(request.POST)
       print form.errors
       if form.is_valid():
-        personas.apellidos = form.cleaned_data['apellidos']
-        personas.nombres = form.cleaned_data['nombres']
-        personas.tipo_doc = form.cleaned_data['tipo_doc']
-        personas.nro_doc = form.cleaned_data['nro_doc']
-        personas.ciudad_nac = form.cleaned_data['ciudad_nac']
-        personas.pais_nac = form.cleaned_data['pais_nac']
-        personas.ciudad_res = form.cleaned_data['ciudad_res']
-        personas.sexo_id = form.cleaned_data['sexo_id']
-        personas.ocupacion = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
-        personas.cuit = form.cleaned_data['cuit']
-        personas.celular = form.cleaned_data['celular']
-        personas.fecha_nac = form.cleaned_data['fecha_nac']
-        personas.estado_civil = form.cleaned_data['estado_civil']
-        personas.alias = form.cleaned_data['alias']
-        personas.save()
+        persona.apellidos = form.cleaned_data['apellidos']
+        persona.nombres = form.cleaned_data['nombres']
+        persona.tipo_doc = form.cleaned_data['tipo_doc']
+        persona.nro_doc = form.cleaned_data['nro_doc']
+        persona.ciudad_nac = form.cleaned_data['ciudad_nac']
+        persona.pais_nac = form.cleaned_data['pais_nac']
+        persona.ciudad_res = form.cleaned_data['ciudad_res']
+        persona.sexo_id = form.cleaned_data['sexo_id']
+        persona.ocupacion = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
+        persona.cuit = form.cleaned_data['cuit']
+        persona.celular = form.cleaned_data['celular']
+        persona.fecha_nac = form.cleaned_data['fecha_nac']
+        persona.estado_civil = form.cleaned_data['estado_civil']
+        persona.alias = form.cleaned_data['alias']
+        persona.save()
         form = PersonasForm()
-        personas = Personas()
+        persona = Personas()
         
   lista = Personas.objects.all()
   tbody = {}
@@ -735,7 +735,7 @@ def personas(request):
   for elemento in lista:
 
     tbody[elemento.id] = '<td>'+elemento.apellidos+', '+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+' '+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
+  return render_to_response('administracion/abm.html',{'personas':persona,'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
 
 @login_required
 def edit_personas(request,id):
@@ -745,32 +745,33 @@ def edit_personas(request,id):
   persona = Personas.objects.get(id=id)
   form = PersonasForm(instance=persona)
   if request.method == 'POST':
-    form = Personas(request.POST)
-    if form.is_valid():
-      personas.apellidos = form.cleaned_data['apellidos']
-      personas.nombres = form.cleaned_data['nombres']
-      personas.tipo_doc = form.cleaned_data['tipo_doc']
-      personas.nro_doc = form.cleaned_data['nro_doc']
-      personas.ciudad_nac = form.cleaned_data['ciudad_nac']
-      personas.pais_nac = form.cleaned_data['pais_nac']
-      personas.ciudad_res = form.cleaned_data['ciudad_res']
-      personas.sexo_id = form.cleaned_data['sexo_id']
-      personas.ocupacion = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
-      personas.cuit = form.cleaned_data['cuit']
-      personas.celular = form.cleaned_data['celular']
-      personas.fecha_nac = form.cleaned_data['fecha_nac']
-      personas.estado_civil = form.cleaned_data['estado_civil']
-      personas.alias = form.cleaned_data['alias']
-      personas.save()  
-      form = PersonasForm()
-      personas = Personas()
+    form = PersonasForm(request.POST)
+    print form.errors
+    persona.apellidos     = form.cleaned_data['apellidos']
+    persona.nombres       = form.cleaned_data['nombres']
+    persona.tipo_doc      = form.cleaned_data['tipo_doc']
+    persona.nro_doc       = form.data['nro_doc']
+    persona.ciudad_nac    = form.cleaned_data['ciudad_nac']
+    persona.pais_nac      = form.cleaned_data['pais_nac']
+    persona.ciudad_res    = form.cleaned_data['ciudad_res']
+    persona.sexo_id       = form.cleaned_data['sexo_id']
+    persona.ocupacion     = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
+    persona.cuit          = form.cleaned_data['cuit']
+    persona.celular       = form.cleaned_data['celular']
+    persona.fecha_nac     = form.cleaned_data['fecha_nac']
+    persona.estado_civil  = form.cleaned_data['estado_civil']
+    persona.alias         = form.cleaned_data['alias']
+    print persona
+    persona.save()  
+    form = PersonasForm()
+    persona = Personas()
 
   lista = Personas.objects.all()
   tbody = {}
   for elemento in lista:
 
     tbody[elemento.id] = '<td>'+elemento.apellidos+', '+elemento.nombres+'</td><td>'+elemento.tipo_doc.descripcion+' '+elemento.nro_doc+'</td><td>'+elemento.celular+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
+  return render_to_response('administracion/abm.html',{'personas':persona, 'form':form,'lista':lista, 'titulo':titulo, 'clase':clase,"columns":columns,'tbody':tbody},context_instance=RequestContext(request)) 
 
 @login_required
 def remove_personas(request,id):
