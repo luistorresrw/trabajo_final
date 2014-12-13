@@ -709,7 +709,6 @@ def personas(request):
   form = PersonasForm()
   if request.method =='POST': 
       form = PersonasForm(request.POST)
-      print form.errors
       if form.is_valid():
         persona.apellidos = form.cleaned_data['apellidos']
         persona.nombres = form.cleaned_data['nombres']
@@ -747,21 +746,20 @@ def edit_personas(request,id):
   if request.method == 'POST':
     form = PersonasForm(request.POST)
     print form.errors
-    persona.apellidos     = form.cleaned_data['apellidos']
-    persona.nombres       = form.cleaned_data['nombres']
-    persona.tipo_doc      = form.cleaned_data['tipo_doc']
-    persona.nro_doc       = form.data['nro_doc']
-    persona.ciudad_nac    = form.cleaned_data['ciudad_nac']
-    persona.pais_nac      = form.cleaned_data['pais_nac']
-    persona.ciudad_res    = form.cleaned_data['ciudad_res']
-    persona.sexo_id       = form.cleaned_data['sexo_id']
-    persona.ocupacion     = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
-    persona.cuit          = form.cleaned_data['cuit']
-    persona.celular       = form.cleaned_data['celular']
-    persona.fecha_nac     = form.cleaned_data['fecha_nac']
-    persona.estado_civil  = form.cleaned_data['estado_civil']
-    persona.alias         = form.cleaned_data['alias']
-    print persona
+    persona.apellidos = form.cleaned_data['apellidos']
+    persona.nombres = form.cleaned_data['nombres']
+    persona.tipo_doc = form.cleaned_data['tipo_doc']
+    persona.nro_doc = form.data['nro_doc']
+    persona.ciudad_nac = form.cleaned_data['ciudad_nac']
+    persona.pais_nac = form.cleaned_data['pais_nac']
+    persona.ciudad_res = form.cleaned_data['ciudad_res']
+    persona.sexo_id = form.cleaned_data['sexo_id']
+    persona.ocupacion = RefOcupacion.objects.get(descripcion='EMPLEADO POLICIAL')
+    persona.cuit = form.cleaned_data['cuit']
+    persona.celular = form.cleaned_data['celular']
+    persona.fecha_nac = form.cleaned_data['fecha_nac']
+    persona.estado_civil = form.cleaned_data['estado_civil']
+    persona.alias = form.cleaned_data['alias']
     persona.save()  
     form = PersonasForm()
     persona = Personas()
