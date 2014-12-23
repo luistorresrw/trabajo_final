@@ -4,9 +4,9 @@ from django.db.models import signals
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User,related_name='profile')
-	pil  = models.CharField(max_length=3)
-	factor_vencimiento = models.IntegerField()
-	fecha_ultimo_cambio = models.DateField()
+	pil  = models.CharField(max_length=98)
+	factor_vencimiento = models.IntegerField(null=True,blank=True)
+	fecha_ultimo_cambio = models.DateField(null=True,blank=True)
 	primer_logueo = models.BooleanField(default = True)
 	
 	class Meta:

@@ -181,6 +181,21 @@ LOGGING = {
     }
 }
 
+EMAIL_HOST = 'policia.chubut.gov.ar'
+
+EMAIL_PORT = 25
+
+EMAIL_HOST_USER = 'divsistemasjp@policia.chubut.gov.ar'
+
+EMAIL_HOST_PASSWORD = 'Pol1c1@jp'
+
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = 'divsistemasjp@policia.chubut.gov.ar'
+
+SERVER_EMAIL = 'divsistemasjp@policia.chubut.gov.ar'
+
+
 AUTH_PROFILE_MODULE = 'prontuario.UserProfile'
 
 DEFAULT_CHARSET = 'utf-8' 
