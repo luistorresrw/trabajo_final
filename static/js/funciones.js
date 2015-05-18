@@ -224,7 +224,9 @@ $(document).ready(function(){
         $('#error-documento').remove();
         documento = $('#id_username');
         if(documento.val()==''){
-            $('#div-documento').append('<br><p class="bg-danger" id="error-documento">Debe ingresar el numero de documento</p>');
+            $('#div-documento').append('<br><div id ="error-documento" class="alert alert-danger alert-dismissible" role="alert">'+
+            '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+            '<strong> Debe ingresar el numero de documento </strong></div>');
         }else{
             toLoad = '../obtener_persona/'+documento.val()+'/';
             $.get(toLoad,function(data){
@@ -235,10 +237,13 @@ $(document).ready(function(){
                         $('#id_first_name').removeAttr('disabled');
                         $('#id_first_name').val(data[i].fields["nombres"]);
                         $('#id_email').removeAttr('disabled');
-                        $('#div-documento').append('<input type="hidden" id="persona_id" name="persona_id" value="'+data[i].fields["id"]+'"/>');      
+                        $('#div-documento').append('<input type="hidden" id="persona_id" name="persona_id" value="'+data[i].fields["id"]+'"/>');
+                        $('#verificar').attr('disabled','disabled');      
                     }
                 }else{
-                    $('#div-documento').append('<br><p class="bg-danger" id="error-documento">La persona que busca no existe.</p>');      
+                    $('#div-documento').append('<br><div id ="error-documento" class="alert alert-danger alert-dismissible" role="alert">'+
+            '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+            '<strong> La persona que busca no existe. </strong></div>');      
                     $('#id_last_name').attr('disabled','disabled');
                     $('#id_last_name').val("");
                     $('#id_first_name').attr('disabled','disabled');

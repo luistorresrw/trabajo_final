@@ -1,4 +1,4 @@
-{% if not user.id %}
+{% if not usuarios.id %}
 <form role="form"  method="POST" action ="{% url 'usuarios' %}">{% csrf_token %}
 {% else %}
 <form role="form"  method="POST" action ="{% url 'edit_user' user.id %}">{% csrf_token %}
@@ -24,5 +24,8 @@
 	<div class="checkbox">
 		 <label data-toggle="tooltip" data-placement="right" title="Deje seleccionada esta casilla si el usuario es administrador.">{{form.is_staff}} Es Administrador</label>
 
+	</div>
+	<div class="form-group">
+	<button type="submit" class="btn btn-info pull-right">Crear Usuario</button>
 	</div>
 	

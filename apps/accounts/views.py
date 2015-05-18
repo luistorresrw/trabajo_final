@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- decoding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -14,6 +14,11 @@ from django.core import serializers
 #
 import random
 from django.contrib.auth import *
+from trabajo_final.settings import SECRET_KEY
+from hashlib import  md5
+from random import randint
+from email.mime.text import MIMEText
+from django.core.mail import EmailMultiAlternatives
 
 def home(request):
 	login = LoginForm()
@@ -98,23 +103,30 @@ def get_value(alpha):
 	alpha.remove(valor)
 	return valor
 
+
+"""verificar_matriz es una funcion que recibe como argumentos el request, input_pil (que es el ingreso que hizo el usuario de los indices de la matriz), y el usuario,
+	con estos datos determina si el segundo factor de identificacion es valido o no."""
+
 def verificar_matriz(request,input_pil,user):
-	if input_pil and input_pil != "":
-		matriz = request.session['matriz']
-		pil = user.profile.pil
-		grupo1 = matriz[int(input_pil[0])]
-		grupo2 = matriz[int(input_pil[1])]
-		grupo3 = matriz[int(input_pil[2])]
-		veri1 = pil[0] in grupo1
-		veri2 = pil[1] in grupo2
-		veri3 = pil[2] in grupo3
-		return veri1 and veri2 and veri3
-	return False
+	if input_pil and input_pil != "":																													#verifico que el ingreso de pil no venga vacio
+		matriz = request.session['matriz']																												#recupero la matriz desde la sesion
+		pil = user.profile.pil.split()																													#recupero el pil del usuario y lo convierto en array
+		grupo1 = matriz[int(input_pil[0])]																												#Obtengo el grupo de caracteres seleccionado con el primer indice
+		grupo2 = matriz[int(input_pil[1])]																												#Obtengo el grupo de caracteres seleccionado con el segundo indice
+		grupo3 = matriz[int(input_pil[2])]																												#Obtengo el grupo de caracteres seleccionado con el tercer indice
+		grupo1 = generar_hash(grupo1[0].encode('utf-8'))+' '+generar_hash(grupo1[1].encode('utf-8'))+' '+generar_hash(grupo1[2].encode('utf-8'))		#Convierto el primer grupo de caracteres en un grupo de hash
+		grupo2 = generar_hash(grupo2[0].encode('utf-8'))+' '+generar_hash(grupo2[1].encode('utf-8'))+' '+generar_hash(grupo2[2].encode('utf-8'))		#Convierto el segundo grupo de caracteres en un grupo de hash
+		grupo3 = generar_hash(grupo3[0].encode('utf-8'))+' '+generar_hash(grupo3[1].encode('utf-8'))+' '+generar_hash(grupo3[2].encode('utf-8'))		#Convierto el tercer grupo de caracteres en un grupo de hash
+		veri1 = pil[0] in grupo1																														#verifico si el primer hash del pil esta contenido en el primer grupo hash
+		veri2 = pil[1] in grupo2																														#verifico si el segundo hash del pil esta contenido en el segundo grupo hash
+		veri3 = pil[2] in grupo3																														#verifico si el tercer hash del pil esta contenido en el tercer grupo hash
+		return veri1 and veri2 and veri3																												#devuelvo el valor de verdad de la verificacion.
+	return False																																		#devuelvo falso si input_pil es nulo o vacio.
 	
 def change_password(request):
 	if request.method == 'POST':
 		form = ChangePassForm(request.POST)
-
+		print form.is_valid()
 		if form.is_valid():
 			username = request.user
 			password = form.data['password_actual']
@@ -171,17 +183,48 @@ def usuarios(request):
 	usuarios = User()
 	form = UserForm()
 	if request.method == 'POST':
+		password = User.objects.make_random_password(length=10)
 		form = UserForm(request.POST)
-		"""if form.is_valid():
-			pais.descripcion = form.cleaned_data['descripcion']
-			pais.save()
-			form = PaisesForm()
-			pais = RefPaises()"""
+		print form.is_valid()
+		if form.is_valid():
+			usuarios.username = form.cleaned_data['username']
+			usuarios.first_name = form.cleaned_data['first_name']
+			usuarios.last_name = form.cleaned_data['last_name']
+			usuarios.is_staff = form.cleaned_data['is_staff']
+			usuarios.email = form.cleaned_data['email']
+			usuarios.set_password(password)
+			try:
+				usuarios.save()
+				profile = usuarios.get_profile()	
+				pil,pil_hashed = generar_pil()
+				profile.pil  = pil_hashed
+				profile.factor_vencimiento = randint(90,180)
+				profile.save()
+
+				info_enviado= True
+				subject, from_email, to = 'Asunto : Usuario y Password' ,'divsistemasjp@policia.chubut.gov.ar',usuarios.email
+				#text_content = ("Este email es creado por Div. Sistemas Informaticos Rw.<br>Usuario: %s <br> Password: %s <br><strong> Grupo Usuarios : %s </strong><br>  <strong>Link Sistema :</strong> <a href='policia.chubut.gov.ar:8000/spid/'>SPID</a><br>Por cualquier consulta y/o reclamos al:\n\n\n<br> email: divsistemasjp@policia.chubut.gov.ar.-"% (request.POST.get('username'),str(password),str(roles)))
+				text_content = ("Hola %s: <br> Le damos la bienvenida al Sistema de Prontuario Policial sus credenciales de acceso son las siguientes:<br> Usuario: %s <br> Password: %s <br> PIL: %s <br>  <strong>Puede acceder haciendo click </strong> <a href='127.0.0.1:8000/spid/'>aqui</a>.<br>Por cualquier consulta y/o reclamos al:\n\n\n<br> email: luistorresrw@gmail.com.-"% (usuarios.first_name,usuarios.username,password,pil))
+
+				msg = EmailMultiAlternatives(subject,text_content,from_email, [to])
+				msg.attach_alternative(text_content,'text/html')
+
+				try:
+					msg.send(fail_silently=False)
+					msg="Se enviaron las credenciales de ingreso al usuario."
+				except Exception, e:
+					msg="Error al Enviar el correo: "+e	
+
+			except Exception, e:
+				raise e
+			
+
+			
 	lista = User.objects.all()
 	tbody = {}
 	for elemento in lista:
 		tbody[elemento.id] = '<td>'+elemento.username+'</td><td>'+elemento.last_name+', '+elemento.first_name+'</td><td>'+elemento.email+'</td><td>'+elemento.date_joined.strftime('%d/%m/%Y')+'</td><td>'+elemento.last_login.strftime('%d/%m/%Y')+'</td>'
-  	return render_to_response('accounts/usuarios.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'tbody':tbody},context_instance=RequestContext(request))
+  	return render_to_response('accounts/usuarios.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'tbody':tbody,'usuarios':usuarios},context_instance=RequestContext(request))
 
 
 def edit_usuarios(request,id):
@@ -197,3 +240,16 @@ def obtener_persona(request,dni):
   	persona = Personas.objects.filter(nro_doc = dni)[:1]
   	data = serializers.serialize("json", persona)
   	return HttpResponse(data, mimetype='application/json')
+
+
+
+def generar_hash(cadena):
+	palabra = cadena+SECRET_KEY
+	return md5(str(palabra)).hexdigest()
+
+
+def generar_pil():
+	alpha = [u'A',u'B',u'C',u'D',u'E',u'F',u'G',u'H',u'I',u'J',u'K',u'L',u'M',u'N',u'Ñ',u'O',u'P',u'Q',u'R',u'S',u'T',u'U',u'V',u'W',u'X',u'Y',u'Z']
+	pil = get_value(alpha).encode('utf-8')+get_value(alpha).encode('utf-8')+get_value(alpha).encode('utf-8')
+	pil_hashed = generar_hash(pil[0])+' '+generar_hash(pil[1])+' '+generar_hash(pil[2])
+	return pil,pil_hashed
