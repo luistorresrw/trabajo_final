@@ -5,19 +5,19 @@
 {% endif %}
 	<div class="form-group">
 		 <label for="ciudad" class>Unidad Regional</label>{{form.unidades_regionales}}
-	</div>
+	
 	{% if form.unidades_regionales.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				<strong> {{ form.unidades_regionales.errors }} </strong>
 			</div>
 		{% endif %}
-
+		</div>
 
 
 	<div class="form-group">
 		 <label for="ciudad" class>Ciudad</label>{{form.ciudad}}
-	</div>
+	
 
 	{% if form.ciudad.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -25,10 +25,11 @@
 				<strong> {{ form.ciudad.errors }} </strong>
 			</div>
 	{% endif %}
+	</div>
 
 	<div class="form-group">
 		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
-	</div>
+	
 
 	{% if form.descripcion.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -36,7 +37,7 @@
 				<strong> {{ form.descripcion.errors }} </strong>
 			</div>
 		{% endif %}
-
+		</div>
 	{% if not dependencia.id %}
 	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
 	 {% else %}

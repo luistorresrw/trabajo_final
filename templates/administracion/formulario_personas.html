@@ -4,162 +4,126 @@
 	<form role="form"  method="POST" action ="{% url 'edit_personas' personas.id %}">{% csrf_token %}
 {% endif %}
 <div class="row clear-fix">
-	<div class="form-group col-sm-3">
-		 <label for="apellidos" class>Apellidos</label>{{form.apellidos}}
-	
-	{% if form.apellidos.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.apellidos.errors}} </strong>
+	<div class="form-group col-sm-12">
+		<div class="form-group col-sm-3">
+			 <label for="apellidos" class>Apellidos</label>{{form.apellidos}}
+			{% if form.apellidos.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.apellidos.errors}} </strong>
+				</div>
+			{% endif %}
 		</div>
-	{% endif %}
+
+		<div class="form-group col-sm-4">
+			<label for="nombres" class>Nombres</label>{{form.nombres}}
+			
+			{% if form.nombres.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.nombres.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="form-group col-sm-2">
+			<label for="tipo documento" class>Tipo</label>{{form.tipo_doc}}
+			{% if form.tipo_doc.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.tipo_doc.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="form-group col-sm-3">
+			<label for="apellidos" class>Nro. Documento</label>{{form.nro_doc}}
+			{% if form.nro_doc.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.nro_doc.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>
+	</div>	
+
+	<div class="form-group col-sm-12">
+		<div class="form-group col-sm-3">
+			<label for="apellidos" class>Pais de Nacimiento</label>{{form.pais_nac}}
+			{% if form.pais_nac.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.pais_nac.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="form-group col-sm-4">
+			<label for="apellidos" class>Ciudad de Nacimiento</label>{{form.ciudad_nac}}
+			{% if form.ciudad_nac.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.ciudad_nac.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="form-group col-sm-5">
+			<label for="apellidos" class>Ciudad de Residencia</label>{{form.ciudad_res}}
+			{% if form.ciudad_res.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.ciudad_res.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>
 	</div>
 
-
-
-
-
-	<div class="form-group col-sm-4">
-		 <label for="nombres" class>Nombres</label>{{form.nombres}}
-	
-	{% if form.nombres.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.nombres.errors}} </strong>
+	<div class="form-group col-sm-12">
+		<div class="form-group col-sm-3">
+			<label for="apellidos" class>Estado Civil</label>{{form.estado_civil}}
+			{% if form.estado_civil.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.estado_civil.errors}} </strong>
+				</div>
+			{% endif %}
 		</div>
-	{% endif %}
-	</div>
 
-
-
-
-
-	<div class="form-group col-sm-2">
-		 <label for="tipo documento" class>Tipo</label>{{form.tipo_doc}}
-	
-
-	{% if form.tipo_doc.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.tipo_doc.errors}} </strong>
+		<div class="form-group col-sm-4">
+			<label for="apellidos" class>Sexo</label>{{form.sexo_id}}
+			{% if form.sexo_id.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.sexo_id.errors}} </strong>
+				</div>
+			{% endif %}
 		</div>
-	{% endif %}
-	</div>
 
-
-	<div class="form-group col-sm-3">
-		 <label for="apellidos" class>Nro. Documento</label>{{form.nro_doc}}
-	
-
-	{% if form.nro_doc.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.nro_doc.errors}} </strong>
+		<div class="form-group col-sm-2">
+			<label for="apellidos">Fecha de Nac.</label></br>
+			<div class="input-group input-append date" id="datePicker">
+	        	{{form.fecha_nac}}<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar white"></span>
+	        </div>
+			{% if form.fecha_nac.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.fecha_nac.errors}} </strong>
+				</div>
+			{% endif %}
 		</div>
-	{% endif %}
+
+		<div class="form-group col-sm-3">
+			<label for="apellidos" class>Nro. de celular</label>{{form.celular}}
+			{% if form.celular.errors %} 
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<strong> {{form.celular.errors}} </strong>
+				</div>
+			{% endif %}
+		</div>	
+		<input type="hidden" name="ocupacion" id="ocupacion" value="8">
 	</div>
-
-
-
-	<div class="form-group col-sm-3">
-		 <label for="apellidos" class>Pais de Nacimiento</label>{{form.pais_nac}}
-	
-	{% if form.pais_nac.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.pais_nac.errors}} </strong>
-		</div>
-	{% endif %}
-	</div>
-
-
-
-
-	<div class="form-group col-sm-4">
-		 <label for="apellidos" class>Ciudad de Nacimiento</label>{{form.ciudad_nac}}
-	
-	{% if form.ciudad_nac.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.ciudad_nac.errors}} </strong>
-		</div>
-	{% endif %}
-	</div>
-
-
-
-	<div class="form-group col-sm-5">
-		 <label for="apellidos" class>Ciudad de Residencia</label>{{form.ciudad_res}}
-	
-
-	{% if form.ciudad_res.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.ciudad_res.errors}} </strong>
-		</div>
-	{% endif %}
-	</div>
-	
-
-	<div class="form-group col-sm-3">
-		 <label for="apellidos" class>Estado Civil</label>{{form.estado_civil}}
-	
-
-	{% if form.estado_civil.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.estado_civil.errors}} </strong>
-		</div>
-	{% endif %}
-	</div>
-
-
-
-	<div class="form-group col-sm-4">
-		 <label for="apellidos" class>Sexo</label>{{form.sexo_id}}
-	
-
-	{% if form.sexo_id.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.sexo_id.errors}} </strong>
-		</div>
-	{% endif %}
-	</div>
-
-
-
-
-	<div class="form-group col-sm-2">
-		 <label for="apellidos">Fecha de Nac.</label></br>
-		 <div class="input-group input-append date" id="datePicker">
-            {{form.fecha_nac}}<span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar white"></span>
-         </div>
-	
-
-	{% if form.fecha_nac.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.fecha_nac.errors}} </strong>
-		</div>
-	{% endif %}
-	</div>
-
-	
-	<div class="form-group col-sm-3">
-		 <label for="apellidos" class>Nro. de celular</label>{{form.celular}}
-	
-	<input type="hidden" name="ocupacion" id="ocupacion" value="8">
-	
-	{% if form.celular.errors %} 
-		<div class="alert alert-danger alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<strong> {{form.celular.errors}} </strong>
-		</div>
-	{% endif %}
-
-	</div>
-
 </div>
 
 

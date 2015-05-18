@@ -217,7 +217,7 @@ class Personas(models.Model):
     sexo_id =  models.ForeignKey('RefSexo', on_delete = models.PROTECT)
     ocupacion = models.ForeignKey('RefOcupacion',blank = True, null = True,on_delete = models.PROTECT)
     cuit = models.CharField(max_length=11,default=0,blank = True, null = True)
-    celular = models.CharField(max_length= 100,blank = True, null = True)
+    celular = models.CharField(max_length= 13,blank = True, null = True)
     fecha_nac = models.DateField()
     estado_civil=models.ForeignKey('RefEstadosciv',blank = True, null = True,on_delete = models.PROTECT)
     alias = models.CharField(max_length=150,blank = True, null = True)
@@ -236,18 +236,30 @@ class Personas(models.Model):
     def clean(self):   
         self.apellidos = self.apellidos.upper()
         self.nombres = self.nombres.upper()
-        self.tipo_doc = self.tipo_doc
+        #self.tipo_doc = self.tipo_doc
         self.nro_doc = self.nro_doc
         self.ciudad_nac = self.ciudad_nac
         self.pais_nac = self.pais_nac
         self.ciudad_res = self.ciudad_res
-        self.sexo_id = self.sexo_id
+        #self.sexo_id = self.sexo_id
         self.ocupacion = self.ocupacion
         self.cuit = self.cuit
         self.celular = self.celular
         self.fecha_nac = self.fecha_nac
         self.estado_civil = self.estado_civil
-        self.alias = self.alias.upper() 
+        self.alias = self.alias.upper()
+
+    def clean_fecha_nac(self):
+        dias_anio = 365
+        fecha_ingresada = self.cleaned_data.get('fecha_nac')
+        fecha_actual = datetime.date.today().years
+        diferencia = (datetime.date.today() - self.fecha_ingresada).days
+        if fecha_ingresada / 4 == 0 and fecha_ingresada != 100 or fecha_actual / 400 == 0:
+            dias_anio += 1
+        anios = str(int(diferencia / dias_anio))
+        if anios < 18:
+            return unicode('La persona ingresada es menor de edad')
+
 
     class Meta:
         unique_together=('tipo_doc','nro_doc','apellidos','nombres',)
