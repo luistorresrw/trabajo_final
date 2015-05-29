@@ -6,12 +6,10 @@ from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
 from apps.accounts.forms import *
 from apps.prontuarios.models import Personas
-#
 from django.contrib import auth
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.conf import settings
 from django.core import serializers
-#
 import random
 from django.contrib.auth import *
 from trabajo_final.settings import SECRET_KEY
@@ -126,7 +124,6 @@ def verificar_matriz(request,input_pil,user):
 def change_password(request):
 	if request.method == 'POST':
 		form = ChangePassForm(request.POST)
-		print form.is_valid()
 		if form.is_valid():
 			username = request.user
 			password = form.data['password_actual']
@@ -142,13 +139,11 @@ def change_password(request):
 					profile = user.profile
 					profile.primer_logueo = False
 					profile.fecha_ultimo_cambio = date.today()
-					print user.profile
 					profile.save()
 				except Exception, e:
 					raise e
 				login(request, user)	
 				return HttpResponseRedirect('../../prontuarios/')
-				
 	return HttpResponseRedirect(reverse('home'))
 
 
