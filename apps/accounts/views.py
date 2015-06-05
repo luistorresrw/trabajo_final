@@ -197,11 +197,14 @@ def usuarios(request):
 				info_enviado= True
 				subject, from_email, to = 'Asunto : Usuario y Password' ,'divsistemasjp@policia.chubut.gov.ar',usuarios.email
 <<<<<<< HEAD
+<<<<<<< HEAD
 				#text_content = ("Este email es creado por Div. Sistemas Informaticos Rw.<br>Usuario: %s <br> Password: %s <br><strong> Grupo Usuarios : %s </strong><br>  <strong>Link Sistema :</strong> <a href='policia.chubut.gov.ar:8000/spid/'>SPID</a><br>Por cualquier consulta y/o reclamos al:\n\n\n<br> email: divsistemasjp@policia.chubut.gov.ar.-"% (request.POST.get('username'),str(password),str(roles)))
 				text_content = ("<p>Hola %s: <br> Le damos la bienvenida al Sistema de Prontuario Policial sus credenciales de acceso son las siguientes:<br> Usuario: %s "+
 					"<br> Password: %s <br> PIL: %s <br>  <strong>Puede acceder haciendo click </strong> <a href=%s>aqui</a>.<br>Por cualquier consulta y/o reclamos al:"+
 					"<br> email: luistorresrw@gmail.com.-</p>"% (usuarios.first_name,usuarios.username,password,pil,'"127.0.0.1:8000/spid/"'))
 =======
+=======
+>>>>>>> 12307eb... cambios minimos en templates
 				text_content = ("Hola %s: <br> Le damos la bienvenida al Sistema de Prontuario Policial sus credenciales de acceso son las siguientes:<br> Usuario: %s <br> Password: %s <br> PIL: %s <br>  <strong>Puede acceder haciendo click </strong> <a href='127.0.0.1:8000/spid/'>aqui</a>.<br>Por cualquier consulta y/o reclamos al:\n\n\n<br> email: luistorresrw@gmail.com.-"% (usuarios.first_name,usuarios.username,password,pil))
 
 >>>>>>> 94210e160922c7e26660d2a3aa44512f4aaed5a4
