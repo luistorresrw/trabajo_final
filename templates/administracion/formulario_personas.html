@@ -126,39 +126,10 @@
 	</div>
 </div>
 
-
-
-
-    
-        
-      
-    
-
-    
-        
-        
-            
-        
- 
-
-    
-
-    
-
-
-
-
-
-
-
-	
-
-
-
 	{% if not personas.id %}
-	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Guardar </i> </a></button><br><br>
 	 {% else %}
-	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Modificar </i> </a></button>  
 	 	<a href="{% url 'personas' %}" class="btn btn-link pull-right" >Cancelar</a>
 	 	<br><br>
 	 {% endif %}

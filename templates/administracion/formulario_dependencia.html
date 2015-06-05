@@ -4,7 +4,7 @@
 <form role="form"  method="POST" action ="{% url 'edit_dependencia' dependencia.id %}">{% csrf_token %}
 {% endif %}
 	<div class="form-group">
-		 <label for="ciudad" class>Unidad Regional</label>{{form.unidades_regionales}}
+		 <label for="ciudad" class>Unidad Regional:</label>{{form.unidades_regionales}}
 	
 	{% if form.unidades_regionales.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -16,7 +16,7 @@
 
 
 	<div class="form-group">
-		 <label for="ciudad" class>Ciudad</label>{{form.ciudad}}
+		 <label for="ciudad" class>Ciudad:</label>{{form.ciudad}}
 	
 
 	{% if form.ciudad.errors %}
@@ -28,7 +28,7 @@
 	</div>
 
 	<div class="form-group">
-		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+		 <label for="descripcion" class>Dependencia:</label>{{form.descripcion}}
 	
 
 	{% if form.descripcion.errors %}
@@ -39,9 +39,9 @@
 		{% endif %}
 		</div>
 	{% if not dependencia.id %}
-	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Guardar </i> </a></button><br><br>
 	 {% else %}
-	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Modificar </i> </a></button>   
 	 	<a href="{% url 'dependencia' %}" class="btn btn-link pull-right" >Cancelar</a>
 	 	<br><br>
 	 {% endif %}

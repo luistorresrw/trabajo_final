@@ -5,7 +5,7 @@
 <form role="form"  method="POST" action ="{% url 'edit_unidad' unidad.id %}">{% csrf_token %}
 {% endif %}
 	<div class="form-group">
-		 <label for="ciudad" class>Ciudad</label>{{form.ciudad}}
+		 <label for="ciudad" class>Ciudad:</label>{{form.ciudad}}
 	
 	{% if form.ciudad.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -17,7 +17,7 @@
 
 
 	<div class="form-group">
-		 <label for="descripcion" class>Descripción</label>{{form.descripcion}}
+		 <label for="descripcion" class>Unidad Regional:</label>{{form.descripcion}}
 	
 
 	{% if form.descripcion.errors %}
@@ -29,9 +29,9 @@
 </div>
 
 	{% if not unidad.id %}
-	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Guardar </i> </a></button><br><br>
 	 {% else %}
-	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Modificar </i> </a></button>   
 	 	<a href="{% url 'unidad' %}" class="btn btn-link pull-right" >Cancelar</a>
 	 	<br><br>
 	 {% endif %}
