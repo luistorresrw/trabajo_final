@@ -52,7 +52,6 @@ def login_ok(request):
 		password = request.session['password']
 		user = auth.authenticate(username = usuario, password = password)
 		primer_logueo = user.profile.primer_logueo
-		print primer_logueo
 		if user is not None and user.is_active: 
 			if verificar_matriz(request,input_pil,user):
 				if primer_logueo == True:
@@ -180,7 +179,6 @@ def usuarios(request):
 	if request.method == 'POST':
 		password = User.objects.make_random_password(length=10)
 		form = UserForm(request.POST)
-		print form.is_valid()
 		if form.is_valid():
 			usuarios.username = form.cleaned_data['username']
 			usuarios.first_name = form.cleaned_data['first_name']
@@ -199,11 +197,11 @@ def usuarios(request):
 				info_enviado= True
 				subject, from_email, to = 'Asunto : Usuario y Password' ,'divsistemasjp@policia.chubut.gov.ar',usuarios.email
 				#text_content = ("Este email es creado por Div. Sistemas Informaticos Rw.<br>Usuario: %s <br> Password: %s <br><strong> Grupo Usuarios : %s </strong><br>  <strong>Link Sistema :</strong> <a href='policia.chubut.gov.ar:8000/spid/'>SPID</a><br>Por cualquier consulta y/o reclamos al:\n\n\n<br> email: divsistemasjp@policia.chubut.gov.ar.-"% (request.POST.get('username'),str(password),str(roles)))
-				text_content = ("Hola %s: <br> Le damos la bienvenida al Sistema de Prontuario Policial sus credenciales de acceso son las siguientes:<br> Usuario: %s <br> Password: %s <br> PIL: %s <br>  <strong>Puede acceder haciendo click </strong> <a href='127.0.0.1:8000/spid/'>aqui</a>.<br>Por cualquier consulta y/o reclamos al:\n\n\n<br> email: luistorresrw@gmail.com.-"% (usuarios.first_name,usuarios.username,password,pil))
-
+				text_content = ("<p>Hola %s: <br> Le damos la bienvenida al Sistema de Prontuario Policial sus credenciales de acceso son las siguientes:<br> Usuario: %s "+
+					"<br> Password: %s <br> PIL: %s <br>  <strong>Puede acceder haciendo click </strong> <a href=%s>aqui</a>.<br>Por cualquier consulta y/o reclamos al:"+
+					"<br> email: luistorresrw@gmail.com.-</p>"% (usuarios.first_name,usuarios.username,password,pil,'"127.0.0.1:8000/spid/"'))
 				msg = EmailMultiAlternatives(subject,text_content,from_email, [to])
-				msg.attach_alternative(text_content,'text/html')
-
+				msg.content_subtype = "html" 
 				try:
 					msg.send(fail_silently=False)
 					msg="Se enviaron las credenciales de ingreso al usuario."
@@ -223,7 +221,23 @@ def usuarios(request):
 
 
 def edit_usuarios(request,id):
-	pass
+	clase = "user"
+	titulo = "Usuarios"
+	columns = ["Usuario","Nombre","Email","Fecha Alta","Ultimo Ingreso"]
+	usuarios = User.objects.get(id=id)
+	form = UserForm(instance=usuarios)
+	if request.method == 'POST':
+		form = UserForm(request.POST)
+		if form.is_valid():
+			form.save()
+			form = UserForm()
+			usuarios = User()
+
+	lista = User.objects.all()
+	tbody = {}
+	for elemento in lista:
+		tbody[elemento.id] = '<td>'+elemento.username+'</td><td>'+elemento.last_name+', '+elemento.first_name+'</td><td>'+elemento.email+'</td><td>'+elemento.date_joined.strftime('%d/%m/%Y')+'</td><td>'+elemento.last_login.strftime('%d/%m/%Y')+'</td>'
+  	return render_to_response('accounts/usuarios.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'tbody':tbody,'usuarios':usuarios},context_instance=RequestContext(request))
 
 
 

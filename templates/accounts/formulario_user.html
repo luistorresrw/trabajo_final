@@ -25,7 +25,13 @@
 		 <label data-toggle="tooltip" data-placement="right" title="Deje seleccionada esta casilla si el usuario es administrador.">{{form.is_staff}} Es Administrador</label>
 
 	</div>
-	<div class="form-group">
-	<button type="submit" class="btn btn-info pull-right">Crear Usuario</button>
+	<div class="form-group col-sm-4">
+		<div class="form-group col-sm-2">
+			<button type="submit" class="btn btn-info pull-right">{% if not usuarios.id %} Crear Usuario {% else %} Confirmar Cambios {% endif %} </button>
+		</div>
+		<div class="form-group col-sm-2">
+			{% if usuarios.id %}
+				<button type="submit" class="btn btn-danger pull-right">Cancelar</button>
+			{% endif %}
+		</div>
 	</div>
-	
