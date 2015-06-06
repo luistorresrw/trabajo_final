@@ -15,9 +15,9 @@ urlpatterns = patterns('',
 	url(r'^edit_provincia/(?P<prov>[0-9A-Za-z]+)/$', edit_provincia ,name='edit_provincia'),
 	url(r'^remove_provincia/(?P<prov>[0-9A-Za-z]+)/$', remove_provincia ,name='remove_provincia'),
 	
-	url(r'^departamento/$',  departamento, name='departamento'),
-	url(r'^edit_departamento/(?P<dto>[0-9A-Za-z]+)/$', edit_departamento ,name='edit_departamento'),
-	url(r'^remove_departamento/(?P<dto>[0-9A-Za-z]+)/$', remove_departamento ,name='remove_departamento'),
+	#url(r'^departamento/$',  departamento, name='departamento'),
+	#url(r'^edit_departamento/(?P<dto>[0-9A-Za-z]+)/$', edit_departamento ,name='edit_departamento'),
+	#url(r'^remove_departamento/(?P<dto>[0-9A-Za-z]+)/$', remove_departamento ,name='remove_departamento'),
 	
 	url(r'^ciudad/$',  ciudad, name='ciudad'),
 	url(r'^edit_ciudad/(?P<cdd>[0-9A-Za-z]+)/$', edit_ciudad ,name='edit_ciudad'),

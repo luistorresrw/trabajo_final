@@ -4,7 +4,7 @@
 <form role="form"  method="POST" action ="{% url 'edit_ciudad' ciudad.id %}">{% csrf_token %}
 {% endif %}
 	<div class="form-group">
-		 <label for="descripcion" class>Pais</label>{{form.pais}}
+		 <label for="descripcion" class>Pais:</label>{{form.pais}}
 	</div>
 	{% if form.pais.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -16,7 +16,7 @@
 
 
 	<div class="form-group">
-		 <label for="descripcion" class>Provincia</label>{{form.provincia}}
+		 <label for="descripcion" class>Provincia:</label>{{form.provincia}}
 	</div>
 
 	{% if form.provincia.errors %}
@@ -26,19 +26,9 @@
 			</div>
 		{% endif %}
 
+	
 	<div class="form-group">
-		 <label for="descripcion" class>Departamento</label>{{form.departamento}}
-	</div>
-
-	{% if form.departamento.errors %}
-			<div class="alert alert-danger alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<strong> {{ form.departamento.errors }} </strong>
-			</div>
-		{% endif %}
-
-	<div class="form-group">
-		 <label for="descripcion" class>Descripcion</label>{{form.descripcion}}
+		 <label for="descripcion" class>Ciudad:</label>{{form.descripcion}}
 	</div>
 
 	{% if form.descripcion.errors %}
@@ -50,9 +40,9 @@
 
 
 	{% if not ciudad.id %}
-	 	<button type="submit" class="btn btn-info pull-right">Nuevo</button><br><br>
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved"></i> Guardar </a></button><br><br>
 	 {% else %}
-	 	<button type="submit" class="btn btn-info pull-right">Modificar</button>  
+	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Modificar </i> </a></button> 
 	 	<a href="{% url 'ciudad' %}" class="btn btn-link pull-right" >Cancelar</a>
 	 	<br><br>
 	 {% endif %}

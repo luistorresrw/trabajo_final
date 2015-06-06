@@ -4,8 +4,11 @@ from django.template import Context, Template, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf 
-from apps.prontuarios.forms import PaisesForm, ProvinciasForm, DepartamentosForm, CiudadesForm, UnidadesForm, DependenciasForm, OcupacionForm, SexoForm, TipoDocumentoForm, EstadoCivilForm, PersonasForm         
-from apps.prontuarios.models import RefPaises, RefProvincia, RefDepartamentos, RefCiudades, UnidadesRegionales, Dependencias, RefOcupacion, RefSexo, RefTipoDocumento, RefEstadosciv, Personas
+
+#from apps.prontuarios.forms import PaisesForm, ProvinciasForm, '''DepartamentosForm,''' CiudadesForm, UnidadesForm, DependenciasForm, OcupacionForm, SexoForm, TipoDocumentoForm, EstadoCivilForm, PersonasForm         
+#from apps.prontuarios.models import RefPaises, RefProvincia, '''RefDepartamentos,''' RefCiudades, UnidadesRegionales, Dependencias, RefOcupacion, RefSexo, RefTipoDocumento, RefEstadosciv, Personas
+from apps.prontuarios.forms import PaisesForm, ProvinciasForm, CiudadesForm, UnidadesForm, DependenciasForm, OcupacionForm, SexoForm, TipoDocumentoForm, EstadoCivilForm, PersonasForm         
+from apps.prontuarios.models import RefPaises, RefProvincia, RefCiudades, UnidadesRegionales, Dependencias, RefOcupacion, RefSexo, RefTipoDocumento, RefEstadosciv, Personas
 
 import random
 from django.contrib.auth import *
@@ -21,7 +24,7 @@ def admin_home(request):
 def pais(request):
   clase = "pais"
   titulo = "Paises"
-  columns = ["descripcion"]
+  columns = ["pais"]
   pais = RefPaises()
   form = PaisesForm()
   if request.method == 'POST':
@@ -41,7 +44,7 @@ def pais(request):
 def edit_pais(request,pais):
   clase = "pais"
   titulo = "Paises"
-  columns = ["descripcion"]
+  columns = ["pais"]
   pais = RefPaises.objects.get(id=pais)
   form = PaisesForm(instance=pais)
   if request.method == 'POST':
@@ -63,7 +66,7 @@ def edit_pais(request,pais):
 def remove_pais(request,pais):
   clase="pais"
   titulo = "Paises"
-  columns = ["descripcion"]
+  columns = ["pais"]
   pais = RefPaises.objects.get(id=pais)
   try:
      pais.delete()
@@ -83,7 +86,7 @@ def remove_pais(request,pais):
 def provincia(request):
   clase = "provincia"
   titulo = "Provincias"
-  columns = ["pais","descripcion"]
+  columns = ["pais","provincia"]
   provincia = RefProvincia()
   form = ProvinciasForm()
   if request.method == 'POST':
@@ -109,7 +112,7 @@ def provincia(request):
 def edit_provincia(request,prov):
   clase = "provincia"
   titulo = "Provincias"
-  columns = ["pais","descripcion"]
+  columns = ["pais","provincia"]
   provincia = RefProvincia.objects.get(id=prov)
   form = ProvinciasForm(instance=provincia)
   if request.method == 'POST':
@@ -133,7 +136,7 @@ def edit_provincia(request,prov):
 def remove_provincia(request,prov):
   clase = "provincia"
   titulo = "Provincias"
-  columns = ["pais","descripcion"]
+  columns = ["pais","provincia"]
   provincia = RefProvincia.objects.get(id=prov)
   try:
      provincia.delete()
@@ -148,7 +151,7 @@ def remove_provincia(request,prov):
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
-
+'''
 @login_required
 def departamento(request):
   clase = "departamento"
@@ -217,12 +220,12 @@ def remove_departamento(request,dto):
 
       tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))  
-
+'''
 @login_required
 def ciudad(request):
   clase = "ciudad"
   titulo = "Ciudades"
-  columns = ["pais","provincia","descripcion"]
+  columns = ["pais","provincia","ciudad"]
   ciudad = RefCiudades()
   form = CiudadesForm()
   if request.method == 'POST':
@@ -231,7 +234,7 @@ def ciudad(request):
     if form.is_valid():
       ciudad.pais = form.cleaned_data['pais']
       ciudad.provincia = form.cleaned_data['provincia']
-      ciudad.departamento = form.cleaned_data['departamento']
+      #ciudad.departamento = form.cleaned_data['departamento']
       ciudad.descripcion = form.cleaned_data['descripcion']
       ciudad.save()
       form = CiudadesForm()
@@ -250,7 +253,7 @@ def ciudad(request):
 def edit_ciudad(request,cdd):
   clase = "ciudad"
   titulo = "Ciudades"
-  columns = ["pais","provincia","descripcion"]
+  columns = ["pais","provincia","ciudad"]
   ciudad = RefCiudades.objects.get(id=cdd)
   form = CiudadesForm(instance=ciudad)
   if request.method == 'POST':
@@ -258,7 +261,7 @@ def edit_ciudad(request,cdd):
     if form.is_valid():
       ciudad.pais = form.cleaned_data['pais']
       ciudad.provincia = form.cleaned_data['provincia']
-      ciudad.departamento = form.cleaned_data['departamento']
+      #ciudad.departamento = form.cleaned_data['departamento']
       ciudad.descripcion = form.cleaned_data['descripcion']
       ciudad.save()
       form = CiudadesForm()
@@ -276,7 +279,7 @@ def edit_ciudad(request,cdd):
 def remove_ciudad(request,cdd):
   clase="ciudad"
   titulo = "Ciudades"
-  columns = ["pais","provincia","descripcion"]
+  columns = ["pais","provincia","ciudad"]
   ciudad = RefCiudades.objects.get(id=cdd)
   try:
      ciudad.delete()
@@ -298,7 +301,7 @@ def remove_ciudad(request,cdd):
 def unidad(request):
   clase = "unidad"
   titulo = "Unidades Regionales"
-  columns = ["ciudad","descripcion"]
+  columns = ["ciudad","Unidad Regional"]
   unidad = UnidadesRegionales()
   form = UnidadesForm()
   if request.method == 'POST':
@@ -322,7 +325,7 @@ def unidad(request):
 def edit_unidad(request,id):
   clase = "unidad"
   titulo = "Unidades Regionales"
-  columns = ["ciudad","descripcion"]
+  columns = ["ciudad","Unidad Regional"]
   unidad = UnidadesRegionales.objects.get(id=id)
   form = UnidadesForm(instance=unidad)
   if request.method == 'POST':
@@ -346,7 +349,7 @@ def edit_unidad(request,id):
 def remove_unidad(request,id):
   clase = "unidad"
   titulo = "Unidades Regionales"
-  columns = ["ciudad","descripcion"]
+  columns = ["ciudad","Unidad Regional"]
   unidad = UnidadesRegionales.objects.get(id=id)
   try:
      unidad.delete()
@@ -366,7 +369,7 @@ def remove_unidad(request,id):
 def dependencia(request):
   clase = "dependencia"
   titulo = "Dependencias Policiales"
-  columns = ["unidad regional","ciudad","descripcion"]
+  columns = ["unidad regional","ciudad","dependencia"]
   dependencia = Dependencias()
   form = DependenciasForm()
   if request.method == 'POST':
@@ -391,7 +394,7 @@ def dependencia(request):
 def edit_dependencia(request,id):
   clase = "dependencia"
   titulo = "Dependencias Policiales"
-  columns = ["unidad regional","ciudad","descripcion"]
+  columns = ["unidad regional","ciudad","dependencia"]
   dependencia = Dependencias.objects.get(id=id)
   form = DependenciasForm(instance=dependencia)
   if request.method == 'POST':
@@ -416,7 +419,7 @@ def edit_dependencia(request,id):
 def remove_dependencia(request,id):
   clase = "dependencia"
   titulo = "Dependencias Policiales"
-  columns = ["unidad regional","ciudad","descripcion"]
+  columns = ["unidad regional","ciudad","dependencia"]
   dependencia = Dependencias.objects.get(id=id)
   try:
      dependencia.delete()
@@ -436,7 +439,7 @@ def remove_dependencia(request,id):
 def profesion(request):
   clase = "profesion"
   titulo = "Profesiones y Oficios"
-  columns = ["descripcion"]
+  columns = ["Ocupación, Profesión, Oficio"]
   profesion = RefOcupacion()
   form = OcupacionForm()
   if request.method == 'POST':
@@ -459,7 +462,7 @@ def profesion(request):
 def edit_profesion(request,id):
   clase = "profesion"
   titulo = "Profesiones y Oficios"
-  columns = ["descripcion"]
+  columns = ["Ocupación, Profesión, Oficio"]
   profesion = RefOcupacion.objects.get(id=id)
   form = OcupacionForm(instance=profesion)
   if request.method == 'POST':
@@ -482,7 +485,7 @@ def edit_profesion(request,id):
 def remove_profesion(request,id):
   clase = "profesion"
   titulo = "Profesiones y Oficios"
-  columns = ["descripcion"]
+  columns = ["Ocupación, Profesión, Oficio"]
   profesion = RefOcupacion.objects.get(id=id)
   try:
      profesion.delete()
@@ -503,7 +506,7 @@ def remove_profesion(request,id):
 def sexo(request):
   clase = "sexo"
   titulo = "Sexos"
-  columns = ["descripcion"]
+  columns = ["sexo"]
   sexo = RefSexo()
   form = SexoForm()
   if request.method =='POST': 
@@ -527,7 +530,7 @@ def sexo(request):
 def edit_sexo(request,sexo):
   clase="sexo"
   titulo = "Sexos"
-  columns = ["descripcion"]
+  columns = ["sexo"]
   sexo = RefSexo.objects.get(id=sexo)
   form = SexoForm(instance=sexo)
   if request.method == 'POST':
@@ -550,7 +553,7 @@ def edit_sexo(request,sexo):
 def remove_sexo(request,sexo):
   clase="sexo"
   titulo = "Sexos"
-  columns = ["descripcion"]
+  columns = ["sexo"]
   sexo = RefSexo.objects.get(id=sexo)
   try:
      sexo.delete()
@@ -571,7 +574,7 @@ def remove_sexo(request,sexo):
 def tipo_doc(request):
   clase = "tipo_doc"
   titulo = "Tipos de Documentos"
-  columns = ["descripcion"]
+  columns = ["Tipo de Documento"]
   tipo_doc = RefTipoDocumento()
   form = TipoDocumentoForm()
   if request.method =='POST': 
@@ -595,7 +598,7 @@ def tipo_doc(request):
 def edit_tipo_doc(request,tipo_doc):
   clase="tipo_doc"
   titulo = "Tipos de Documentos"
-  columns = ["descripcion"]
+  columns = ["Tipo de Documento"]
   tipo_doc = RefTipoDocumento.objects.get(id=tipo_doc)
   form = TipoDocumentoForm(instance=tipo_doc)
   if request.method == 'POST':
@@ -617,7 +620,7 @@ def edit_tipo_doc(request,tipo_doc):
 def remove_tipo_doc(request,tipo_doc):
   clase="tipo_doc"
   titulo = "Tipos de Documentos"
-  columns = ["descripcion"]
+  columns = ["Tipo de Documento"]
   tipo_doc = RefTipoDocumento.objects.get(id=tipo_doc)
   try:
      tipo_doc.delete()
@@ -639,7 +642,7 @@ def remove_tipo_doc(request,tipo_doc):
 def estado_civil(request):
   clase = "estado_civil"
   titulo = "Estados Civiles"
-  columns = ["descripcion"]
+  columns = ["Estado Civil"]
   estado_civil = RefEstadosciv()
   form = EstadoCivilForm()
   if request.method =='POST': 
@@ -662,7 +665,7 @@ def estado_civil(request):
 def edit_estado_civil(request,estado_civil):
   clase= "estado_civil"
   titulo = "Estados Civiles"
-  columns = ["descripcion"]
+  columns = ["Estado Civil"]
   estado_civil = RefEstadosciv.objects.get(id=estado_civil)
   form = EstadoCivilForm(instance=estado_civil)
   if request.method == 'POST':
@@ -684,7 +687,7 @@ def edit_estado_civil(request,estado_civil):
 def remove_estado_civil(request,estado_civil):
   clase = "estado_civil"
   titulo = "Estados Civiles"
-  columns = ["descripcion"]
+  columns = ["Estado Civil"]
   estado_civil = RefEstadosciv.objects.get(id=estado_civil)
   try:
      estado_civil.delete()

@@ -44,29 +44,10 @@ class RefProvincia(models.Model):
         db_table = 'ref_provincia'
         ordering = ["descripcion"]
         verbose_name='Provincia'
-     
-class RefDepartamentos(models.Model):
-    id = models.AutoField(primary_key=True)
-    descripcion = models.CharField("Ingrese Departamento :", unique=True, max_length=45L)
-    provincia = models.ForeignKey(RefProvincia, on_delete=models.PROTECT)
-       
-    def __unicode__(self):
-        return  u'%s' %  (self.descripcion)
-        self.descripcion = self.descripcion.upper()
-        
-    
-    def save(self, force_insert=False, force_update=False):
-        self.descripcion = self.descripcion.upper()
-        super(RefDepartamentos, self).save(force_insert, force_update)
 
-    class Meta:
-        ordering = ["descripcion"]
-        db_table = 'ref_departamentos'
-        
 class RefCiudades(models.Model):
     id = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=80L)
-    departamento = models.ForeignKey('RefDepartamentos',blank=True, null=True, on_delete=models.PROTECT)
     provincia = models.ForeignKey('RefProvincia', blank=True,  null=True, on_delete=models.PROTECT)
     pais = models.ForeignKey('RefPaises', on_delete=models.PROTECT)
     lat= models.CharField(max_length=50,blank=True,null=True)
@@ -81,7 +62,7 @@ class RefCiudades(models.Model):
         super(RefCiudades, self).save(force_insert, force_update)
 
     class Meta:
-        unique_together = ('pais','provincia','departamento','descripcion',)
+        unique_together = ('pais','provincia','descripcion',)
         ordering = ["descripcion"]
         db_table = 'ref_ciudades'
 
