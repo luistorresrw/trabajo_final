@@ -3,35 +3,43 @@
 {% else %}
 <form role="form"  method="POST" action ="{% url 'edit_user' user.id %}">{% csrf_token %}
 {% endif %}
-	<div id="div-documento">
+	<div id="div-documento col-md-12">
 	<label for="username">Nro. de Documento</label>
-	<div class="input-group">
+	<div class="input-group col-md-12">
 		 {{form.username}}
 		 <span class="input-group-btn">
         <button class="btn btn-primary" type="button" id="verificar"><i class="glyphicon glyphicon-search"></i> Verificar</button>
       </span>
 	</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group col-md-12">
 		 <label for="last_name">Apellidos</label>{{form.last_name}}
 	</div>
-	<div class="form-group">
+	<div class="form-group col-md-12">
 		 <label for="first_name">Nombres</label>{{form.first_name}}
 	</div>
-	<div class="form-group">
+	<div class="form-group col-md-12">
 		 <label for="email">Correo Electronico</label>{{form.email}}
 	</div>
-	<div class="checkbox">
+	<div class="checkbox col-md-12">
 		 <label data-toggle="tooltip" data-placement="right" title="Deje seleccionada esta casilla si el usuario es administrador.">{{form.is_staff}} Es Administrador</label>
 
 	</div>
-	<div class="form-group col-sm-4">
-		<div class="form-group col-sm-2">
-			<button type="submit" class="btn btn-info pull-right">{% if not usuarios.id %} Crear Usuario {% else %} Confirmar Cambios {% endif %} </button>
-		</div>
-		<div class="form-group col-sm-2">
+	<div class="form-group col-md-12">
+		<div class="col-md-6 col-md-offset-6">
 			{% if usuarios.id %}
-				<button type="submit" class="btn btn-danger pull-right">Cancelar</button>
+				<div class="col-md-3 col-md-offset-4">
+					<button id="cancelbtn" type="button" class="btn btn-danger pull-right"> <i class="glyphicon glyphicon-remove"></i> Cancelar</button>
+				</div>
 			{% endif %}
+			{% if usuarios.id %}
+				<div class="col-md-3 col-md-offset-2"> 
+			{% else %}
+				<div class="col-md-3 col-md-offset-9"> 
+			{% endif %}
+					<button type="submit" class="btn btn-info pull-right"> <i class="glyphicon glyphicon-ok"></i> {% if not usuarios.id %} Crear Usuario {% else %} Confirmar Cambios {% endif %} </button>
+				</div>
+
 		</div>
 	</div>
+	

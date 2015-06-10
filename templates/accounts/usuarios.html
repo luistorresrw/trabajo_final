@@ -1,13 +1,15 @@
 {% extends "administracion/logueado_admin.html" %}
 {% load filtro %}
 {% block cuerpo_admin %}
+
 		<h3> Administración de {{ titulo }} </h3>
 		
 		<hr>
+		<div class="col-md-12">
 			{% with "accounts/formulario_"|add:clase|add:".html" as template %}
 				{% include template %}
 			{% endwith %}
-
+		</div>
 		<hr>
 		<h4> <b>Listado General</b> </h4>
 			<table class="table table-bordered table-condensed" id="table" name="table">
@@ -38,5 +40,5 @@
 					{% endfor %}
 				</tbody>
 			</table>
-	
+
 {% endblock cuerpo_admin %}
