@@ -151,76 +151,7 @@ def remove_provincia(request,prov):
       tbody[elemento.id] = '<td>'+elemento.pais.descripcion+'</td><td>'+elemento.descripcion+'</td>'
   
   return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'provincia':provincia,'tbody':tbody},context_instance=RequestContext(request))
-'''
-@login_required
-def departamento(request):
-  clase = "departamento"
-  titulo = "Departamentos"
-  columns = ["provincia","descripcion"]
-  departamento = RefDepartamentos()
-  form = DepartamentosForm()
-  if request.method == 'POST':
-    form = DepartamentosForm(request.POST)
-    print form
-    if form.is_valid():
-      departamento.provincia = form.cleaned_data['provincia']
-      departamento.descripcion = form.cleaned_data['descripcion']
-      departamento.save()
-      form = DepartamentosForm()
-      departamento = RefDepartamentos()
 
-  lista = RefDepartamentos.objects.all()
-  tbody = {}
-  for elemento in lista:
-
-      tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-  
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
-
-@login_required
-def edit_departamento(request,dto):
-  clase="departamento"
-  titulo = "Departamentos"
-  columns = ["provincia","descripcion"]
-  departamento = RefDepartamentos.objects.get(id=dto)
-  form = DepartamentosForm(instance=departamento)
-  if request.method == 'POST':
-    form = DepartamentosForm(request.POST)
-    if form.is_valid():
-      departamento.provincia = form.cleaned_data['provincia'];
-      departamento.descripcion = form.cleaned_data['descripcion']
-      departamento.save()
-      form = DepartamentosForm()
-      departamento = RefDepartamentos()
-
-  lista = RefDepartamentos.objects.all()
-  tbody = {}
-  for elemento in lista:
-
-      tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-  
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))
-
-@login_required
-def remove_departamento(request,dto):
-  clase="departamento"
-  titulo = "Departamentos"
-  columns = ["provincia","descripcion"]
-  departamento = RefDepartamentos.objects.get(id=dto)
-  try:
-     departamento.delete()
-  except Exception, e:
-     raise e 
-  form = DepartamentosForm()
-  departamento = RefDepartamentos()
-  lista = RefDepartamentos.objects.all()
- 
-  tbody = {}
-  for elemento in lista:
-
-      tbody[elemento.id] = '<td>'+elemento.provincia.descripcion+'</td><td>'+elemento.descripcion+'</td>'
-  return render_to_response('administracion/abm.html',{'form':form,'lista':lista, 'titulo':titulo ,'clase':clase,'columns':columns,'departamento':departamento,'tbody':tbody},context_instance=RequestContext(request))  
-'''
 @login_required
 def ciudad(request):
   clase = "ciudad"
@@ -234,7 +165,6 @@ def ciudad(request):
     if form.is_valid():
       ciudad.pais = form.cleaned_data['pais']
       ciudad.provincia = form.cleaned_data['provincia']
-      #ciudad.departamento = form.cleaned_data['departamento']
       ciudad.descripcion = form.cleaned_data['descripcion']
       ciudad.save()
       form = CiudadesForm()

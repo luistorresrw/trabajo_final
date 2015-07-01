@@ -5,9 +5,10 @@
 {% endif %}
 	<div class="form-group">
 		<label for="descripcion" class>Pais:</label>{{form.pais}}
-		
-
-	
+		<!-- Button trigger modal -->
+		<!--<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+		  <i class="glyphicon glyphicon-plus"></i>
+		</button>-->
 
 	{% if form.pais.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
@@ -19,20 +20,49 @@
 	<div class="form-group">
 		 <label for="descripcion" class>Provincia:</label>{{form.descripcion}}
 	
-	{% if form.descripcion.errors %}
+		{% if form.descripcion.errors %}
 			<div class="alert alert-danger alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				<strong> {{ form.descripcion.errors }} </strong>
 			</div>
 		{% endif %}
-</div>
+	</div>
 
 
 	{% if not provincia.id %}
 	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Guardar </i> </a></button><br><br>
-	 {% else %}
+	{% else %}
 	 	<button type="submit" class="btn btn-sm btn-info pull-right"><i class="glyphicon glyphicon-saved">Modificar </i> </a></button>   
-	 	<a href="{% url 'provincia' %}" class="btn btn-link pull-right" >Cancelar</a>
+	 	<a href="{% url 'provincia' %}" class="btn btn-link pull-right">Cancelar</a>
 	 	<br><br>
-	 {% endif %}
+	{% endif %}
 </form>
+
+
+
+
+<!-- Modal --
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Agregar Pais:</h4>
+      		</div>
+      		<div class="modal-body">
+        		<form class="form_pais" role="form"  method="POST" action ="{% url 'pais' %}">{% csrf_token %}
+      				<div class="form-group">
+            			<label for="pais" class="control-label">Pais: </label><br>
+                		<input type="text" class="control-label form-control" name="descripcion" id="descripcion" value="{{pais}}"  autocomplete="off" placeholder="Ingrese Pais - Nacion"></br>
+        				<button type="submit" class="btn btn-info btn-sm pull-right"><i class="glyphicon glyphicon-saved">Guardar</i> </button>
+        				<button type="button" class="btn btn-link pull-right" data-dismiss="modal" >Cancelar</button></br>
+        			</div>
+      			</form>
+    		</div>
+  		</div>
+	</div>
+</div>
+<!-- Fin Modal-->
+
+
+
